@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:10:28 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/10 21:21:55 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/10 21:28:37 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,6 @@ int	main()
 		return (1);
 	data.windows = mlx_new_window(data.mlx, 500, 500, "so_long");
 	mlx_key_hook(data.windows, key_manager, &data);
-	mlx_hook(data.windows, 17, 1L, game_over, &data);
+	mlx_hook(data.windows, 17, 1L, game_over, &data); // what is 17 and 1L? event and mask codes but i need to know where they get them
 	mlx_loop(data.mlx);
 }
