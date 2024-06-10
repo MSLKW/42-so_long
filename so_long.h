@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:11:52 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/08 11:30:23 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/10 21:03:52 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,17 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <math.h>
-#include "./minilibx-linux/mlx.h"
+// LINUX:
+// #include "./minilibx-linux/mlx.h"
 
+// MAC:
+#include "./minilibx_opengl/mlx.h"
+
+typedef struct s_data
+{
+	void	*mlx;
+	void	*windows;
+	int		moves_count;
+}	t_data;
 
 #endif

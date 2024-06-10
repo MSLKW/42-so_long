@@ -12,31 +12,40 @@ DEPS = $(addprefix $(SRCS_DIR), $(DEPS_FILES))
 OBJS = $(SRCS:.c=.o)
 
 LIBFT = libft/libft.a
-LIBMLX = minilibx-linux/libmlx_Linux.a
-.PHONY = all clean fclean re
 
-$(NAME): $(OBJS) $(DEPS) $(LIBFT) $(LIBMLX)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LIBMLX) -lX11 -lXext -o $(NAME)
+# MAC:
+$(NAME): $(OBJS) $(DEPS) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lmlx -framework OpenGL -framework Appkit -o $(NAME)
+
+clean:
+	rm -f $(OBJS) $(BONUS_OBJS)
+	make -C ./libft clean
+
+# LINUX:
+# LIBMLX = minilibx-linux/libmlx_Linux.a
+# $(NAME): $(OBJS) $(DEPS) $(LIBFT) $(LIBMLX) 
+# 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LIBMLX) -lX11 -lXext -o $(NAME)
+# $(LIBMLX):
+# 	make -C ./minilibx-linux
+
+# clean:
+# 	rm -f $(OBJS) $(BONUS_OBJS)
+# 	make -C ./libft clean
+# 	make -C ./minilibx-linux clean
 
 $(LIBFT):
 	make -C ./libft
 
-$(LIBMLX):
-	make -C ./minilibx-linux
-
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $<
+
+.PHONY = all clean fclean re
 
 all: $(NAME) clean
 
 fclean: clean
 	rm -f $(NAME)
 	make -C ./libft fclean
-
-clean:
-	rm -f $(OBJS) $(BONUS_OBJS)
-	make -C ./libft clean
-	make -C ./minilibx-linux clean
 
 re: fclean all
 
