@@ -6,46 +6,24 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:10:28 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/10 21:28:37 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/14 09:18:28 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-/*
-
-TODO:
-
-PRELIMINARIES
----
-Create functioning window
-Display images
-	Convert xpm to img
-
-
-
-GAME
----
-Display map onto windows
-Implement movement
-
-
-VALIDATE MAP
-
-
-
-
-
-
-
-
-*/
+void	error_exit(char *str)
+{
+	ft_printf("Error\n");
+	ft_printf(str);
+	exit(EXIT_FAILURE);
+}
 
 int	game_over(t_data *data)
 {
-	mlx_destroy_window(data->mlx, data->windows);
+	mlx_destroy_window(data->mlx, data->window);
 	ft_printf("Game over!");
-	exit(0);
+	exit(EXIT_SUCCESS);
 }
 
 void	movement_manager(int keycode, t_data *data)
@@ -78,11 +56,14 @@ int	main()
 	t_data data;
 
 	data.moves_count = 0;
+	data.map = get_map();
 	data.mlx = mlx_init();
 	if (data.mlx == NULL)
-		return (1);
-	data.windows = mlx_new_window(data.mlx, 500, 500, "so_long");
-	mlx_key_hook(data.windows, key_manager, &data);
-	mlx_hook(data.windows, 17, 1L, game_over, &data); // what is 17 and 1L? event and mask codes but i need to know where they get them
+		return (EXIT_FAILURE);
+	data.textures = get_textures(&data);
+	data.window = mlx_new_window(data.mlx, data.map->width * IMAGE_SIZE, data.map->height * IMAGE_SIZE, "so_long");
+	set_background(&data);
+	mlx_key_hook(data.window, key_manager, &data);
+	mlx_hook(data.window, 17, 1L, game_over, &data); // what is 17 and 1L? event and mask codes but i need to know where they get them
 	mlx_loop(data.mlx);
 }

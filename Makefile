@@ -3,8 +3,8 @@ NAME := so_long
 CC := cc
 CFLAGS := -Wall -Wextra -Werror
 
-SRCS_DIR := ./
-SRCS_FILES := so_long.c
+SRCS_DIR := ./mandatory/
+SRCS_FILES := so_long.c graphics.c map.c
 DEPS_FILES := so_long.h
 
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS_FILES))
