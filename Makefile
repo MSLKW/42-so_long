@@ -4,7 +4,7 @@ CC := cc
 CFLAGS := -Wall -Wextra -Werror
 
 SRCS_DIR := ./mandatory/
-SRCS_FILES := so_long.c graphics.c map.c
+SRCS_FILES := so_long.c graphics.c map.c map_validator.c map_validator2.c map_utils.c
 DEPS_FILES := so_long.h
 
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS_FILES))

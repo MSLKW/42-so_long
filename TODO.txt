@@ -7,9 +7,9 @@ PRELIMINARIES
 VALIDATE MAP
 	is it rectangle?
 	only 1 exit, collectible and starting position?
-	surrounded by walls
-	valid path
-	must be able to parse map of any size
+	surrounded by walls?
+	valid path?
+	must be able to parse map of any size up to int max
 
 ERROR REPORTING (DONE)
 	exit (DONE)
@@ -23,3 +23,6 @@ GAME
 	Implement movement
 	Implement Collectibles
 		Collection
+
+BUGS
+	What if map size is too big? (solution: scrolling)

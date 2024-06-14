@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:32:04 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/14 13:30:34 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/14 18:06:07 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,22 @@ t_bool	is_all_same(char *str, char c)
 	{
 		if (str[index] != c)
 			return (FALSE);
+		index++;
 	}
 	return (TRUE);
 }
 
-t_player	*get_position(t_map *map)
+t_player	*get_player_pos(t_map *map)
 {
 	t_player	*player;
 
 	player = malloc(sizeof(player));
 	if (player == NULL)
 		return (NULL);
-	player->x = 0;
 	player->y = 0;
 	while (player->y < map->height)
 	{
+		player->x = 0;
 		while (player->x < map->width)
 		{
 			if (map->map_lines[player->y][player->x] == 'P')
@@ -44,6 +45,7 @@ t_player	*get_position(t_map *map)
 		}
 		player->y++;
 	}
+	return (NULL);
 }
 
 void	assign_map_counts(t_map *map)
@@ -58,6 +60,7 @@ void	assign_map_counts(t_map *map)
 	y = 0;
 	while ((line = map->map_lines[y]) != NULL)
 	{
+		x = 0;
 		while (line[x] != '\0')
 		{
 			if (line[x] == 'C')

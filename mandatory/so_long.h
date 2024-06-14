@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:11:52 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/14 13:30:51 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/14 17:51:25 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,21 @@ void		set_background(t_data *data);
 t_map	*get_map(char *map_file_path);
 
 // map_validator.c
+t_bool	is_map_valid(t_map *map);
+t_bool	is_rectangle(t_map *map);
+t_bool	is_only_one(t_map *map);
+t_bool	is_walled(t_map *map);
+
+// map_validator2.c
+t_bool	is_pathable(t_map *map, t_player sim, t_bool path_found);
+t_bool	path_up(t_map *map, t_player sim, t_bool path_found);
+t_bool	path_down(t_map *map, t_player sim, t_bool path_found);
+t_bool	path_left(t_map *map, t_player sim, t_bool path_found);
+t_bool	path_right(t_map *map, t_player sim, t_bool path_found);
 
 // map_utils.c
 t_bool	is_all_same(char *str, char c);
+t_player	*get_player_pos(t_map *map);
 void	assign_map_size(t_map *map);
 void	assign_map_counts(t_map *map);
 

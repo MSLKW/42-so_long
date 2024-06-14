@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:10:28 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/14 11:23:00 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/14 17:56:55 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	movement_manager(int keycode, t_data *data)
 		ft_printf("S");
 	else if (keycode == 2)
 		ft_printf("D");
-	data->moves_count++;
-	ft_printf("Moves: %i\n", data->moves_count);
+	data->player->moves_count++;
+	ft_printf("Moves: %i\n", data->player->moves_count);
 }
 
 int	key_manager(int keycode, t_data *data)
@@ -59,12 +59,13 @@ int	main(int argc, char **argv)
 		error_exit("Too many arguments");
 	else if (argc != 2)
 		error_exit("No map found");
-	data.moves_count = 0;
 	data.mlx = mlx_init();
 	if (data.mlx == NULL)
 		return (EXIT_FAILURE);
 	data.textures = get_textures(&data);
+	ft_printf("done textures");
 	data.map = get_map(argv[1]);
+	ft_printf("done map stuff\n");
 	data.window = mlx_new_window(data.mlx, data.map->width * IMAGE_SIZE, data.map->height * IMAGE_SIZE, "so_long");
 	set_background(&data);
 	mlx_key_hook(data.window, key_manager, &data); // maybev mlx_hook for key_repeat?
