@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:10:28 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/14 17:56:55 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/14 22:02:03 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	main(int argc, char **argv)
 	if (data.mlx == NULL)
 		return (EXIT_FAILURE);
 	data.textures = get_textures(&data);
-	ft_printf("done textures");
+	ft_printf("done textures\n");
 	data.map = get_map(argv[1]);
 	ft_printf("done map stuff\n");
 	data.window = mlx_new_window(data.mlx, data.map->width * IMAGE_SIZE, data.map->height * IMAGE_SIZE, "so_long");

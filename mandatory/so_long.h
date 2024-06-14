@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:11:52 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/14 17:51:25 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/14 22:28:19 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@
 # define IMAGE_SIZE 32
 # define TRUE 1
 # define FALSE 0
+
+# define PATH_START 0
+# define NO_UP 1
+# define NO_LEFT 2
+# define NO_RIGHT 3
+# define NO_DOWN 4
 
 typedef int t_bool;
 
@@ -90,7 +96,7 @@ t_bool	is_only_one(t_map *map);
 t_bool	is_walled(t_map *map);
 
 // map_validator2.c
-t_bool	is_pathable(t_map *map, t_player sim, t_bool path_found);
+t_bool	is_pathable(t_map *map, t_player sim, t_bool path_found, int no_path);
 t_bool	path_up(t_map *map, t_player sim, t_bool path_found);
 t_bool	path_down(t_map *map, t_player sim, t_bool path_found);
 t_bool	path_left(t_map *map, t_player sim, t_bool path_found);
