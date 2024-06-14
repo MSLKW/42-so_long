@@ -1,0 +1,25 @@
+TODO:
+
+PRELIMINARIES
+	Create functioning window (DONE)
+		Able to close using X and Escape key(DONE)
+
+VALIDATE MAP
+	is it rectangle?
+	only 1 exit, collectible and starting position?
+	surrounded by walls
+	valid path
+	must be able to parse map of any size
+
+ERROR REPORTING (DONE)
+	exit (DONE)
+	return "Error\n" + "error message" (DONE)
+
+GRAPHICS
+	Convert xpm to img
+	Display img(xpm) onto windows
+
+GAME
+	Implement movement
+	Implement Collectibles
+		Collection

@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:10:28 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/14 09:18:28 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/14 11:23:00 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,23 @@ int	key_manager(int keycode, t_data *data)
 	return (0);
 }
 
-int	main()
+int	main(int argc, char **argv)
 {
 	t_data data;
 
+	if (argc > 2)
+		error_exit("Too many arguments");
+	else if (argc != 2)
+		error_exit("No map found");
 	data.moves_count = 0;
-	data.map = get_map();
 	data.mlx = mlx_init();
 	if (data.mlx == NULL)
 		return (EXIT_FAILURE);
 	data.textures = get_textures(&data);
+	data.map = get_map(argv[1]);
 	data.window = mlx_new_window(data.mlx, data.map->width * IMAGE_SIZE, data.map->height * IMAGE_SIZE, "so_long");
 	set_background(&data);
-	mlx_key_hook(data.window, key_manager, &data);
-	mlx_hook(data.window, 17, 1L, game_over, &data); // what is 17 and 1L? event and mask codes but i need to know where they get them
+	mlx_key_hook(data.window, key_manager, &data); // maybev mlx_hook for key_repeat?
+	mlx_hook(data.window, 17, 1L << 0, game_over, &data); // what is 17 and 1L? event and mask codes but i need to know where they get them
 	mlx_loop(data.mlx);
 }
