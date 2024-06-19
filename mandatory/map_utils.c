@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:32:04 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/14 18:06:07 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/19 15:15:31 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,16 @@ t_player	*get_player_pos(t_map *map)
 		player->y++;
 	}
 	return (NULL);
+}
+
+int	ft_strlist_count(char **str_list)
+{
+	int	count;
+
+	count = 0;
+	while (str_list[count] != NULL)
+		count++;
+	return (count + 1);
 }
 
 void	assign_map_counts(t_map *map)

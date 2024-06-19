@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:11:52 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/14 22:28:19 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/19 15:37:11 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,6 @@
 # define TRUE 1
 # define FALSE 0
 
-# define PATH_START 0
-# define NO_UP 1
-# define NO_LEFT 2
-# define NO_RIGHT 3
-# define NO_DOWN 4
-
 typedef int t_bool;
 
 typedef struct s_textures
@@ -44,7 +38,8 @@ typedef struct s_textures
 	void	*player;
 	void	*collectible;
 	void	*background;
-	void	*map_exit;
+	void	*exit_closed;
+	void	*exit_open;
 	int		width;
 	int		height;
 }	t_textures;
@@ -52,6 +47,7 @@ typedef struct s_textures
 typedef struct s_map
 {
 	char	**map_lines;
+	char	*map_file_path;
 	int		collectibles_count;
 	int		exits_count;
 	int		players_count;
@@ -63,6 +59,7 @@ typedef struct s_player
 {
 	int		moves_count;
 	int		collectibles_collected;
+	t_bool	escaped;
 	int		x;
 	int		y;
 }	t_player;
@@ -84,10 +81,13 @@ int		key_manager(int keycode, t_data *data);
 
 // graphics.c
 t_textures	*get_textures(t_data *data);
-void		set_background(t_data *data);
+void		put_background(t_data *data);
+void		put_image(t_data *data, void *img_ptr, int x, int y);
 
 // map.c
 t_map	*get_map(char *map_file_path);
+char	**get_map_lines(char *map_file_path);
+char	**ft_dupe_map_lines(char **map_lines);
 
 // map_validator.c
 t_bool	is_map_valid(t_map *map);
@@ -96,7 +96,10 @@ t_bool	is_only_one(t_map *map);
 t_bool	is_walled(t_map *map);
 
 // map_validator2.c
-t_bool	is_pathable(t_map *map, t_player sim, t_bool path_found, int no_path);
+t_bool	is_pathable(t_map *map, t_player sim, t_bool path_found);
+t_bool	path_conds(t_map *map, t_player sim, t_bool path_found);
+
+// map_validator3.c
 t_bool	path_up(t_map *map, t_player sim, t_bool path_found);
 t_bool	path_down(t_map *map, t_player sim, t_bool path_found);
 t_bool	path_left(t_map *map, t_player sim, t_bool path_found);
@@ -107,5 +110,6 @@ t_bool	is_all_same(char *str, char c);
 t_player	*get_player_pos(t_map *map);
 void	assign_map_size(t_map *map);
 void	assign_map_counts(t_map *map);
+int		ft_strlist_count(char **str_list);
 
 #endif

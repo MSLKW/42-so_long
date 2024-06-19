@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:25:32 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/14 22:28:00 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/19 15:22:47 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_bool	is_map_valid(t_map *map)
 	sim = get_player_pos(map);
 	if (sim == NULL)
 		error_exit("Invalid map: Player not found");
-	else if (is_pathable(map, *sim, FALSE, PATH_START) == FALSE) // segfaulting here!!!
+	else if (is_pathable(map, *sim, FALSE) == FALSE)
 		error_exit("Invalid map: No path to exit found");
 	return (TRUE);
 }
