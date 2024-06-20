@@ -4,7 +4,7 @@ PRELIMINARIES
 	Create functioning window (DONE)
 		Able to close using X and Escape key(DONE)
 
-VALIDATE MAP
+VALIDATE MAP (ONE)
 	is it rectangle?
 	only 1 exit, collectible and starting position?
 	surrounded by walls?
@@ -16,12 +16,12 @@ ERROR REPORTING (DONE)
 	return "Error\n" + "error message" (DONE)
 
 GRAPHICS
-	Convert xpm to img
-	Display img(xpm) onto windows
+	Convert xpm to img (DONE)
+	Display img(xpm) onto windows (DONE)
 
 GAME
-	Implement movement
-	Implement Collectibles
+	Implement movement (DONE)
+	Implement Collectibles (DONE)
 		Collection
 
 BUGS

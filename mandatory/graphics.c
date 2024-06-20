@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 08:21:51 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/20 09:08:21 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/20 11:43:28 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,16 @@ t_textures	*get_textures(t_data *data)
 		textures->exit_open == NULL || 
 		textures->wall == NULL)
 	{
-		free(textures);
+		free_textures(textures);
 		return (NULL);
 	}
 	return (textures);
 }
 
+void	put_image(t_data *data, void *img_ptr, int x, int y)
+{
+	mlx_put_image_to_window(data->mlx, data->window, img_ptr, x * data->textures->width, y * data->textures->height);
+}
 void	put_background(t_data *data)
 {
 	int	x;
@@ -58,36 +62,29 @@ void	put_background(t_data *data)
 	}
 }
 
-void	put_image(t_data *data, void *img_ptr, int x, int y)
-{
-	mlx_put_image_to_window(data->mlx, data->window, img_ptr, x * data->textures->width, y * data->textures->height);
-}
-
 void	put_map(t_data *data)
 {
-	// loop through map->lines and place an img according to
 	int	x;
 	int	y;
 
-	ft_printf("height: %i | width: %i\n", data->map->height, data->map->width);
 	y = 0;
 	while (y < data->map->height)
 	{
 		x = 0;
 		while (x < data->map->width)
 		{
-			ft_printf("Map tile: %c\n", data->map->lines[y][x]);
 			if (data->map->lines[y][x] == PLAYER)
-			{
-				ft_printf("Player pointer: %p\n", data->textures->player);
 				put_image(data, data->textures->player, x, y);
-			}
 			else if (data->map->lines[y][x] == WALL)
 				put_image(data, data->textures->wall, x, y);
 			else if (data->map->lines[y][x] == COLLECTIBLE)
 				put_image(data, data->textures->collectible, x, y);
-			else if (data->map->lines[y][x] == EXIT)
-				put_image(data, data->textures->exit_closed, x, y);	
+			else if (data->map->lines[y][x] == EXIT && *data->player->escaped == FALSE)
+				put_image(data, data->textures->exit_closed, x, y);
+			else if (data->map->lines[y][x] == EXIT && *data->player->escaped == TRUE)
+				put_image(data, data->textures->exit_open, x, y);
+			else if (data->map->lines[y][x] == EMPTY)
+				put_image(data, data->textures->background, x, y);	
 			x++;
 		}
 		y++;

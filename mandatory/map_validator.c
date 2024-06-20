@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:25:32 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/20 08:39:33 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/20 12:00:48 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_bool	is_map_valid(t_map *map)
 	if (is_rectangle(map) == FALSE)
 		error_exit("Invalid map: Map is not rectangle");
 	else if (is_only_one(map) == FALSE)
-		error_exit("Invalid map: Map has no collectibles or too many exits or \
-			too many players");
+		error_exit(\
+"Invalid map: Map has no collectibles or too many exits or too many players");
 	else if (is_walled(map) == FALSE)
 		error_exit("Invalid map: Map is not walled off");
 	sim = get_player(map);
@@ -28,6 +28,7 @@ t_bool	is_map_valid(t_map *map)
 		error_exit("Invalid map: Player not found");
 	else if (is_pathable(map, *sim, FALSE) == FALSE)
 		error_exit("Invalid map: No path to exit found");
+	free_player(sim);
 	return (TRUE);
 }
 

@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:10:28 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/20 09:01:51 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/20 11:45:58 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,31 +23,16 @@ int	game_over(t_data *data)
 {
 	mlx_destroy_window(data->mlx, data->window);
 	ft_printf("Game over!");
+	free_data(data);
 	exit(EXIT_SUCCESS);
-}
-
-void	movement_manager(int keycode, t_data *data)
-{
-	if (keycode == 13)
-		ft_printf("W");
-	else if (keycode == 0)
-		ft_printf("A");
-	else if (keycode == 1)
-		ft_printf("S");
-	else if (keycode == 2)
-		ft_printf("D");
-	data->player->moves_count++;
-	ft_printf("Moves: %i\n", data->player->moves_count);
 }
 
 int	key_manager(int keycode, t_data *data)
 {
-	if (keycode == 53)
+	if (keycode == ESC)
 		game_over(data);
-	else if (keycode == 13 || keycode == 0 || keycode == 1 || keycode == 2)
+	else if (keycode == W || keycode == A || keycode == S || keycode == D)
 		movement_manager(keycode, data);
-	else
-		ft_printf("Keycode: %i\n", keycode);
 	return (0);
 }
 
@@ -63,14 +48,18 @@ int	main(int argc, char **argv)
 	if (data.mlx == NULL)
 		return (EXIT_FAILURE);
 	data.textures = get_textures(&data);
-	ft_printf("done textures\n");
+	if (data.textures == NULL)
+		error_exit("Textures not found");
 	data.map = get_map(argv[1]);
-	ft_printf("done map stuff\n");
+	if (data.map == NULL)
+		error_exit("Unable to get map, is map path file correct?");
+	data.player = get_player(data.map);
+	if (data.player == NULL)
+		error_exit("Player not found");
 	data.window = mlx_new_window(data.mlx, data.map->width * IMAGE_SIZE, data.map->height * IMAGE_SIZE, "so_long");
 	put_background(&data);
 	put_map(&data);
-	ft_printf("done put map\n");
-	mlx_key_hook(data.window, key_manager, &data); // maybev mlx_hook for key_repeat?
-	mlx_hook(data.window, 17, 1L << 0, game_over, &data); // what is 17 and 1L? event and mask codes but i need to know where they get them
+	mlx_key_hook(data.window, key_manager, &data);
+	mlx_hook(data.window, 17, 1L << 0, game_over, &data); // 17 is escape key while // 1L << 0 is the mask
 	mlx_loop(data.mlx);
 }

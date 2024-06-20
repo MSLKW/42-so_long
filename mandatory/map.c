@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 09:06:20 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/20 08:39:33 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/20 11:46:56 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,26 @@
 t_map	*get_map(char *map_file_path)
 {
 	t_map	*map;
-	char	**map_lines; // MIGHT HAVE SOME LEAKS IF ERROR
-	char	**dupe_map_lines; // MIGHT HAVE SOME LEAKS IF ERROR
+	char	**map_lines;
 
 	map = malloc(sizeof(t_map));
 	if (map == NULL)
-		error_exit("Invalid map: Unable to allocate memory");
+		return (NULL);
 	map_lines = get_map_lines(map_file_path);
-	dupe_map_lines = ft_dupe_map_lines(map_lines);
-	if (map_lines == NULL)
+	map->lines = ft_dupe_map_lines(map_lines);
+	if (map_lines == NULL || map->lines == NULL)
 	{
-		free(map);
-		error_exit("Invalid map: Unable to get map");
+		if (map_lines != NULL)
+			free(map_lines);
+		free_map(map);
+		return (NULL);
 	}
-	map->lines = map_lines;
-	map->map_file_path = map_file_path;
+	map->map_file_path = ft_strdup(map_file_path);
 	assign_map_size(map);
 	assign_map_counts(map);
 	is_map_valid(map);
-	map->lines = dupe_map_lines;
+	free(map->lines);
+	map->lines = ft_dupe_map_lines(map_lines);
 	free(map_lines);
 	return (map);
 }
@@ -61,6 +62,8 @@ char	**ft_dupe_map_lines(char **map_lines)
 	char	**dupe_map_lines;
 	int		index;
 
+	if (map_lines == NULL)
+		return (NULL);
 	dupe_map_lines = malloc(sizeof(char *) * ft_strlist_count(map_lines));
 	if (dupe_map_lines == NULL)
 		return (NULL);
@@ -70,6 +73,6 @@ char	**ft_dupe_map_lines(char **map_lines)
 		dupe_map_lines[index] = ft_strdup(map_lines[index]);
 		index++;
 	}
-	dupe_map_lines[index] = map_lines[index];
+	dupe_map_lines[index] = NULL;
 	return (dupe_map_lines);
 }

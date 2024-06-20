@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:48:03 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/20 08:50:41 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/20 12:05:33 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ t_bool	path_conds(t_map *map, t_player sim, t_bool path_found)
 		if (map->lines[sim.y][sim.x] == EXIT)
 			*(sim.escaped) = TRUE;
 		if (map->lines[sim.y][sim.x] == COLLECTIBLE)
-			*sim.collectibles_collected = *sim.collectibles_collected + 1;
+		{
+			*sim.collectibles_collected += 1;
+			ft_printf("sim.collectibles_collected: %p | sim.collectibles_collected: %i\n", sim.collectibles_collected, *sim.collectibles_collected);
+		}
 		map->lines[sim.y][sim.x] = WALL;
 		if (*sim.collectibles_collected == map->collectibles_count && *(sim.escaped) == TRUE)
 			return (TRUE);

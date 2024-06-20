@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:32:04 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/20 08:51:05 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/20 12:11:34 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ t_player	*get_player(t_map *map)
 	player->escaped = malloc(sizeof(t_bool));
 	if (player->collectibles_collected == NULL || player->escaped == NULL)
 		return (NULL);
+	player->moves_count = 0;
+	*player->collectibles_collected = 0;
+	*player->escaped = FALSE;
 	player->y = 0;
 	while (player->y < map->height)
 	{
@@ -102,7 +105,7 @@ void	assign_map_size(t_map *map)
 	first_line = map->lines[0];
 	if (first_line == NULL)
 		error_exit("Invalid map: No content");
-	while(first_line[width] != '\0')
+	while (first_line[width] != '\0')
 		width++;
 	map->height = height;
 	map->width = width;

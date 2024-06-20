@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:11:52 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/20 08:57:51 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/20 11:47:52 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,21 @@
 #include <errno.h>
 #include <math.h>
 // LINUX:
-// #include "../minilibx-linux/mlx.h"
+#include "../minilibx-linux/mlx.h"
+# define W 119
+# define A 97
+# define S 115
+# define D 100
+# define ESC 65307
 
 // MAC:
-#include "../minilibx_opengl/mlx.h"
+// #include "../minilibx_opengl/mlx.h"
+// # define W 13
+// # define A 0
+// # define S 1
+// # define D 2
+// # define ESC 53
+
 
 # define INT_MAX 2147483647
 # define IMAGE_SIZE 32
@@ -82,8 +93,11 @@ typedef struct s_data
 // so_long.c
 void	error_exit(char *str);
 int		game_over(t_data *data);
-void	movement_manager(int keycode, t_data *data);
 int		key_manager(int keycode, t_data *data);
+
+// movement_manager.c
+void	movement_manager(int keycode, t_data *data);
+void	move_player(t_data *data, int x, int y);
 
 // graphics.c
 t_textures	*get_textures(t_data *data);
@@ -118,5 +132,11 @@ t_player	*get_player(t_map *map);
 void	assign_map_size(t_map *map);
 void	assign_map_counts(t_map *map);
 int		ft_strlist_count(char **str_list);
+
+// free_data.c
+void	free_data(t_data *data);
+void	free_textures(t_textures *textures);
+void	free_map(t_map *map);
+void	free_player(t_player *player);
 
 #endif
