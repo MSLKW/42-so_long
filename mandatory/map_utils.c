@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:32:04 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/19 15:15:31 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/20 08:51:05 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,16 @@ t_bool	is_all_same(char *str, char c)
 	return (TRUE);
 }
 
-t_player	*get_player_pos(t_map *map)
+t_player	*get_player(t_map *map)
 {
 	t_player	*player;
 
 	player = malloc(sizeof(player));
 	if (player == NULL)
+		return (NULL);
+	player->collectibles_collected = malloc(sizeof(int));
+	player->escaped = malloc(sizeof(t_bool));
+	if (player->collectibles_collected == NULL || player->escaped == NULL)
 		return (NULL);
 	player->y = 0;
 	while (player->y < map->height)
@@ -39,7 +43,7 @@ t_player	*get_player_pos(t_map *map)
 		player->x = 0;
 		while (player->x < map->width)
 		{
-			if (map->map_lines[player->y][player->x] == 'P')
+			if (map->lines[player->y][player->x] == PLAYER)
 				return (player);
 			player->x++;
 		}
@@ -68,16 +72,16 @@ void	assign_map_counts(t_map *map)
 	map->exits_count = 0;
 	map->players_count = 0;
 	y = 0;
-	while ((line = map->map_lines[y]) != NULL)
+	while ((line = map->lines[y]) != NULL)
 	{
 		x = 0;
 		while (line[x] != '\0')
 		{
-			if (line[x] == 'C')
+			if (line[x] == COLLECTIBLE)
 				map->collectibles_count++;
-			else if (line[x] == 'E')
+			else if (line[x] == EXIT)
 				map->exits_count++;
-			else if (line[x] == 'P')
+			else if (line[x] == PLAYER)
 				map->players_count++;
 			x++;
 		}
@@ -93,9 +97,9 @@ void	assign_map_size(t_map *map)
 
 	height = 0;
 	width = 0;
-	while (map->map_lines[height] != NULL)
+	while (map->lines[height] != NULL)
 		height++;
-	first_line = map->map_lines[0];
+	first_line = map->lines[0];
 	if (first_line == NULL)
 		error_exit("Invalid map: No content");
 	while(first_line[width] != '\0')

@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 09:06:20 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/19 15:19:28 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/20 08:39:33 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ t_map	*get_map(char *map_file_path)
 		free(map);
 		error_exit("Invalid map: Unable to get map");
 	}
-	map->map_lines = map_lines;
+	map->lines = map_lines;
 	map->map_file_path = map_file_path;
 	assign_map_size(map);
 	assign_map_counts(map);
 	is_map_valid(map);
-	map->map_lines = dupe_map_lines;
+	map->lines = dupe_map_lines;
 	free(map_lines);
 	return (map);
 }

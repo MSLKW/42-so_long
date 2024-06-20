@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:25:32 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/19 15:22:47 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/20 08:39:33 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_bool	is_map_valid(t_map *map)
 			too many players");
 	else if (is_walled(map) == FALSE)
 		error_exit("Invalid map: Map is not walled off");
-	sim = get_player_pos(map);
+	sim = get_player(map);
 	if (sim == NULL)
 		error_exit("Invalid map: Player not found");
 	else if (is_pathable(map, *sim, FALSE) == FALSE)
@@ -36,9 +36,9 @@ t_bool	is_rectangle(t_map *map)
 	int	index;
 
 	index = 0;
-	while (map->map_lines[index] != NULL)
+	while (map->lines[index] != NULL)
 	{
-		if (ft_strlen(map->map_lines[index]) != map->width)
+		if (ft_strlen(map->lines[index]) != map->width)
 			return (FALSE);
 		index++;
 	}
@@ -57,11 +57,11 @@ t_bool	is_walled(t_map *map)
 	int		y;
 	char	*line;
 
-	if (is_all_same(map->map_lines[0], '1') == FALSE || \
-		is_all_same(map->map_lines[map->height - 1], '1') == FALSE)
+	if (is_all_same(map->lines[0], '1') == FALSE || \
+		is_all_same(map->lines[map->height - 1], '1') == FALSE)
 		return (FALSE);
 	y = 0;
-	while ((line = map->map_lines[y]) != NULL)
+	while ((line = map->lines[y]) != NULL)
 	{
 		if (line[0] != '1' || line[map->width - 1] != '1')
 			return (FALSE);

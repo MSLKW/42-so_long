@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:11:52 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/19 15:37:11 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/20 08:57:51 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@
 # define TRUE 1
 # define FALSE 0
 
+# define PLAYER 'P'
+# define WALL '1'
+# define EMPTY '0'
+# define EXIT 'E'
+# define COLLECTIBLE 'C'
+
 typedef int t_bool;
 
 typedef struct s_textures
@@ -46,7 +52,7 @@ typedef struct s_textures
 
 typedef struct s_map
 {
-	char	**map_lines;
+	char	**lines;
 	char	*map_file_path;
 	int		collectibles_count;
 	int		exits_count;
@@ -58,8 +64,8 @@ typedef struct s_map
 typedef struct s_player
 {
 	int		moves_count;
-	int		collectibles_collected;
-	t_bool	escaped;
+	int		*collectibles_collected;
+	t_bool	*escaped;
 	int		x;
 	int		y;
 }	t_player;
@@ -83,6 +89,7 @@ int		key_manager(int keycode, t_data *data);
 t_textures	*get_textures(t_data *data);
 void		put_background(t_data *data);
 void		put_image(t_data *data, void *img_ptr, int x, int y);
+void		put_map(t_data *data);
 
 // map.c
 t_map	*get_map(char *map_file_path);
@@ -107,7 +114,7 @@ t_bool	path_right(t_map *map, t_player sim, t_bool path_found);
 
 // map_utils.c
 t_bool	is_all_same(char *str, char c);
-t_player	*get_player_pos(t_map *map);
+t_player	*get_player(t_map *map);
 void	assign_map_size(t_map *map);
 void	assign_map_counts(t_map *map);
 int		ft_strlist_count(char **str_list);

@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:10:28 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/19 14:57:51 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/20 09:01:51 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	main(int argc, char **argv)
 	ft_printf("done map stuff\n");
 	data.window = mlx_new_window(data.mlx, data.map->width * IMAGE_SIZE, data.map->height * IMAGE_SIZE, "so_long");
 	put_background(&data);
+	put_map(&data);
+	ft_printf("done put map\n");
 	mlx_key_hook(data.window, key_manager, &data); // maybev mlx_hook for key_repeat?
 	mlx_hook(data.window, 17, 1L << 0, game_over, &data); // what is 17 and 1L? event and mask codes but i need to know where they get them
 	mlx_loop(data.mlx);
