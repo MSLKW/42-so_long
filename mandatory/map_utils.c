@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:32:04 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/20 12:11:34 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/24 14:30:38 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_player	*get_player(t_map *map)
 {
 	t_player	*player;
 
-	player = malloc(sizeof(player));
+	player = malloc(sizeof(t_player));
 	if (player == NULL)
 		return (NULL);
 	player->collectibles_collected = malloc(sizeof(int));

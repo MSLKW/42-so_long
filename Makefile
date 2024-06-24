@@ -1,7 +1,7 @@
 NAME := so_long
 
 CC := cc
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra -Werror -ggdb3
 
 SRCS_DIR := ./mandatory/
 SRCS_FILES := so_long.c graphics.c map.c map_validator.c map_validator2.c map_validator3.c map_utils.c movement_manager.c free_data.c
@@ -23,8 +23,9 @@ LIBFT = libft/libft.a
 
 # LINUX:
 LIBMLX = minilibx-linux/libmlx_Linux.a
-$(NAME): $(OBJS) $(DEPS) $(LIBFT) $(LIBMLX) 
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LIBMLX) -lX11 -lXext -o $(NAME)
+EFLAGS := -lX11 -lXext
+$(NAME): $(OBJS) $(DEPS) $(LIBFT) $(LIBMLX)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LIBMLX) $(EFLAGS) -o $(NAME)
 $(LIBMLX):
 	make -C ./minilibx-linux
 

@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 09:29:07 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/20 10:33:42 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/24 15:24:09 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,15 @@ void	move_player(t_data *data, int x, int y)
 
 	if (data->map->lines[data->player->y + y][data->player->x + x] == WALL)
 		return ;
+	else if (data->map->lines[data->player->y + y][data->player->x + x] == EXIT && *data->player->escaped == FALSE)
+		return ;
 	data->map->lines[data->player->y][data->player->x] = EMPTY;
 	data->player->y += y;
 	data->player->x += x;
 	tile = data->map->lines[data->player->y][data->player->x];
 	if (tile == COLLECTIBLE)
 	{
-		*data->player->collectibles_collected = *data->player->collectibles_collected + 1;
+		*data->player->collectibles_collected += 1;
 		if (*data->player->collectibles_collected == data->map->collectibles_count)
 			*data->player->escaped = TRUE;
 	}

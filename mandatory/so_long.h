@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:11:52 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/20 11:47:52 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/24 15:12:45 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,5 +138,6 @@ void	free_data(t_data *data);
 void	free_textures(t_textures *textures);
 void	free_map(t_map *map);
 void	free_player(t_player *player);
+void	free_str_list(char **str_list);
 
 #endif
