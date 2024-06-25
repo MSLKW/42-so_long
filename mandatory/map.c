@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 09:06:20 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/24 15:13:03 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/25 14:30:27 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,45 @@ t_map	*get_map(char *map_file_path)
 	return (map);
 }
 
-char	**get_map_lines(char *map_file_path)
+int		get_map_height(char *map_file_path)
 {
 	int		fd;
-	char	*text_buf;
+	int		height;
+	char	*map_line;
+	
+	fd = open(map_file_path, O_RDONLY);
+	if (fd == -1)
+		error_exit("Invalid map: Invalid file path");
+	map_line = get_next_line(fd);
+	free(map_line);
+	height = 0;
+	if (map_line == NULL)
+		error_exit("Invalid map: No content in file");
+	while (map_line != NULL)
+	{
+		height++;
+		map_line = get_next_line(fd);
+		free(map_line);
+	}
+	return (height);
+}
+
+char	**get_map_lines(char *map_file_path, int map_height)
+{
+	int		fd;
 	char	**map_lines;
+	int		index;
 
 	fd = open(map_file_path, O_RDONLY);
 	if (fd == -1)
 		error_exit("Invalid map: Invalid file path");
-	text_buf = ft_calloc(INT_MAX / 4, sizeof(char)); // INT MAX? maybe make this more efficient by SOMEHOW counting before allocating, can use gnl
-	if (text_buf == NULL)
-		error_exit("Invalid map: Unable to allocate memory");
-	read(fd, text_buf, INT_MAX / 4);
-	map_lines = ft_split(text_buf, '\n');
-	free(text_buf);
+	map_lines = ft_calloc(map_height, sizeof(char *));
+	while (index < map_height)
+	{
+		map_lines[index] = get_next_line(fd);
+		map_height--;
+	}
+	close(fd);
 	return (map_lines);
 }
 
