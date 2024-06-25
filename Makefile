@@ -14,25 +14,25 @@ OBJS = $(SRCS:.c=.o)
 LIBFT = libft/libft.a
 
 # MAC:
-# $(NAME): $(OBJS) $(DEPS) $(LIBFT)
-# 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lmlx -framework OpenGL -framework Appkit -o $(NAME)
-
-# clean:
-# 	rm -f $(OBJS) $(BONUS_OBJS)
-# 	make -C ./libft clean
-
-# LINUX:
-LIBMLX = minilibx-linux/libmlx_Linux.a
-EFLAGS := -lX11 -lXext
-$(NAME): $(OBJS) $(DEPS) $(LIBFT) $(LIBMLX)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LIBMLX) $(EFLAGS) -o $(NAME)
-$(LIBMLX):
-	make -C ./minilibx-linux
+$(NAME): $(OBJS) $(DEPS) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lmlx -framework OpenGL -framework Appkit -o $(NAME)
 
 clean:
 	rm -f $(OBJS) $(BONUS_OBJS)
 	make -C ./libft clean
-	make -C ./minilibx-linux clean
+
+# LINUX:
+# LIBMLX = minilibx-linux/libmlx_Linux.a
+# EFLAGS := -lX11 -lXext
+# $(NAME): $(OBJS) $(DEPS) $(LIBFT) $(LIBMLX)
+# 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LIBMLX) $(EFLAGS) -o $(NAME)
+# $(LIBMLX):
+# 	make -C ./minilibx-linux
+
+# clean:
+# 	rm -f $(OBJS) $(BONUS_OBJS)
+# 	make -C ./libft clean
+# 	make -C ./minilibx-linux clean
 
 $(LIBFT):
 	make -C ./libft

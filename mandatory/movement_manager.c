@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 09:29:07 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/24 15:24:09 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/25 13:53:02 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,17 @@ void	movement_manager(int keycode, t_data *data)
 	if (keycode == W)
 		move_player(data, 0, -1);
 	else if (keycode == A)
+	{
+		data->player->direction = LEFT;
 		move_player(data, -1, 0);
+	}
 	else if (keycode == S)
 		move_player(data, 0, 1);
 	else if (keycode == D)
+	{
+		data->player->direction = RIGHT;
 		move_player(data, 1, 0);
+	}
 }
 
 void	move_player(t_data *data, int x, int y)

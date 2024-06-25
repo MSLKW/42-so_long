@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:32:04 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/24 14:30:38 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/25 13:52:21 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_player	*get_player(t_map *map)
 	player->moves_count = 0;
 	*player->collectibles_collected = 0;
 	*player->escaped = FALSE;
+	player->direction = RIGHT;
 	player->y = 0;
 	while (player->y < map->height)
 	{

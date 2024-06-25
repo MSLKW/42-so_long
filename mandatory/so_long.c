@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:10:28 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/20 11:45:58 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/25 13:31:59 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	key_manager(int keycode, t_data *data)
 
 int	main(int argc, char **argv)
 {
-	t_data data;
+	t_data	data;
 
 	if (argc > 2)
 		error_exit("Too many arguments");
@@ -56,10 +56,11 @@ int	main(int argc, char **argv)
 	data.player = get_player(data.map);
 	if (data.player == NULL)
 		error_exit("Player not found");
-	data.window = mlx_new_window(data.mlx, data.map->width * IMAGE_SIZE, data.map->height * IMAGE_SIZE, "so_long");
+	data.window = mlx_new_window(data.mlx, data.map->width * IMAGE_SIZE, \
+		data.map->height * IMAGE_SIZE, "so_long");
 	put_background(&data);
 	put_map(&data);
 	mlx_key_hook(data.window, key_manager, &data);
-	mlx_hook(data.window, 17, 1L << 0, game_over, &data); // 17 is escape key while // 1L << 0 is the mask
+	mlx_hook(data.window, X_BUTTON, 1L << 0, game_over, &data);
 	mlx_loop(data.mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:11:52 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/24 15:12:45 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/25 13:43:46 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,24 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <math.h>
-// LINUX:
-#include "../minilibx-linux/mlx.h"
-# define W 119
-# define A 97
-# define S 115
-# define D 100
-# define ESC 65307
 
-// MAC:
-// #include "../minilibx_opengl/mlx.h"
-// # define W 13
-// # define A 0
-// # define S 1
-// # define D 2
-// # define ESC 53
+# ifdef __APPLE__
+#  include "../minilibx_opengl/mlx.h"
+#  define W 13
+#  define A 0
+#  define S 1
+#  define D 2
+#  define ESC 53
+# else 
+#  include "../minilibx-linux/mlx.h"
+#  define W 119
+#  define A 97
+#  define S 115
+#  define D 100
+#  define ESC 65307
+# endif
 
+# define X_BUTTON 17
 
 # define INT_MAX 2147483647
 # define IMAGE_SIZE 32
@@ -47,12 +49,19 @@
 # define EXIT 'E'
 # define COLLECTIBLE 'C'
 
+# define UP 1
+# define RIGHT 2
+# define DOWN 3
+# define LEFT 4
+
 typedef int t_bool;
+typedef int	t_direction;
 
 typedef struct s_textures
 {
 	void	*wall;
-	void	*player;
+	void	*player_left;
+	void	*player_right;
 	void	*collectible;
 	void	*background;
 	void	*exit_closed;
@@ -74,11 +83,12 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	int		moves_count;
-	int		*collectibles_collected;
-	t_bool	*escaped;
-	int		x;
-	int		y;
+	int			moves_count;
+	int			*collectibles_collected;
+	t_direction	direction;
+	t_bool		*escaped;
+	int			x;
+	int			y;
 }	t_player;
 
 typedef struct s_data
@@ -135,7 +145,7 @@ int		ft_strlist_count(char **str_list);
 
 // free_data.c
 void	free_data(t_data *data);
-void	free_textures(t_textures *textures);
+void	free_textures(t_data *data, t_textures *textures);
 void	free_map(t_map *map);
 void	free_player(t_player *player);
 void	free_str_list(char **str_list);
