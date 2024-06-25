@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:10:28 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/25 13:31:59 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/25 17:45:18 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	error_exit(char *str)
 
 int	game_over(t_data *data)
 {
-	mlx_destroy_window(data->mlx, data->window);
 	ft_printf("Game over!");
 	free_data(data);
 	exit(EXIT_SUCCESS);
@@ -58,7 +57,6 @@ int	main(int argc, char **argv)
 		error_exit("Player not found");
 	data.window = mlx_new_window(data.mlx, data.map->width * IMAGE_SIZE, \
 		data.map->height * IMAGE_SIZE, "so_long");
-	put_background(&data);
 	put_map(&data);
 	mlx_key_hook(data.window, key_manager, &data);
 	mlx_hook(data.window, X_BUTTON, 1L << 0, game_over, &data);

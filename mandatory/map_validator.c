@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:25:32 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/20 12:00:48 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/25 17:13:57 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ t_bool	is_rectangle(t_map *map)
 
 t_bool	is_only_one(t_map *map)
 {
-	if (map->collectibles_count <= 0 || map->exits_count != 1 || map->players_count != 1)
+	if (map->collectibles_count <= 0 || \
+			map->exits_count != 1 || \
+			map->players_count != 1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -62,11 +64,13 @@ t_bool	is_walled(t_map *map)
 		is_all_same(map->lines[map->height - 1], '1') == FALSE)
 		return (FALSE);
 	y = 0;
-	while ((line = map->lines[y]) != NULL)
+	line = map->lines[y];
+	while (line != NULL)
 	{
 		if (line[0] != '1' || line[map->width - 1] != '1')
 			return (FALSE);
 		y++;
+		line = map->lines[y];
 	}
 	return (TRUE);
 }

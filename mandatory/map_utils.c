@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:32:04 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/25 13:52:21 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/25 17:12:25 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_player	*get_player(t_map *map)
 	player = malloc(sizeof(t_player));
 	if (player == NULL)
 		return (NULL);
-	player->collectibles_collected = malloc(sizeof(int));
+	player->collectibles_collected = malloc(sizeof(int *));
 	player->escaped = malloc(sizeof(t_bool));
 	if (player->collectibles_collected == NULL || player->escaped == NULL)
 		return (NULL);
@@ -41,6 +41,13 @@ t_player	*get_player(t_map *map)
 	*player->collectibles_collected = 0;
 	*player->escaped = FALSE;
 	player->direction = RIGHT;
+	if (assign_player_pos(player, map) == FALSE)
+		return (NULL);
+	return (player);
+}
+
+t_bool	assign_player_pos(t_player *player, t_map *map)
+{
 	player->y = 0;
 	while (player->y < map->height)
 	{
@@ -48,22 +55,12 @@ t_player	*get_player(t_map *map)
 		while (player->x < map->width)
 		{
 			if (map->lines[player->y][player->x] == PLAYER)
-				return (player);
+				return (TRUE);
 			player->x++;
 		}
 		player->y++;
 	}
-	return (NULL);
-}
-
-int	ft_strlist_count(char **str_list)
-{
-	int	count;
-
-	count = 0;
-	while (str_list[count] != NULL)
-		count++;
-	return (count + 1);
+	return (FALSE);
 }
 
 void	assign_map_counts(t_map *map)
@@ -71,12 +68,13 @@ void	assign_map_counts(t_map *map)
 	int		y;
 	int		x;
 	char	*line;
-	
+
 	map->collectibles_count = 0;
 	map->exits_count = 0;
 	map->players_count = 0;
 	y = 0;
-	while ((line = map->lines[y]) != NULL)
+	line = map->lines[y];
+	while (line != NULL)
 	{
 		x = 0;
 		while (line[x] != '\0')
@@ -90,13 +88,14 @@ void	assign_map_counts(t_map *map)
 			x++;
 		}
 		y++;
+		line = map->lines[y];
 	}
 }
 
 void	assign_map_size(t_map *map)
 {
-	int	height;
-	int	width;
+	int		height;
+	int		width;
 	char	*first_line;
 
 	height = 0;
