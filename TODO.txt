@@ -25,4 +25,13 @@ GAME
 		Collection
 
 BUGS
-	What if map size is too big? (solution: scrolling)
+	What if map size is too big? (solution: dont care)
+
+BONUS
+-----
+ENEMY
+
+MOVE DISPLAY 
+
+ANIMATION
+	Create t_frames
