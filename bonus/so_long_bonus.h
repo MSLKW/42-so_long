@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:11:52 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/25 19:28:26 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/29 22:18:41 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 # define EMPTY '0'
 # define EXIT 'E'
 # define COLLECTIBLE 'C'
+# define ENEMY 'G'
 
 # define UP 1
 # define RIGHT 2
@@ -58,11 +59,7 @@ typedef int	t_bool;
 typedef int	t_direction;
 typedef int	t_miliseconds;
 typedef t_list t_frames;
-
-typedef struct s_animation_player
-{
-	
-}	t_animation_player;
+typedef t_list t_enemies;
 
 typedef struct s_frame
 {
@@ -114,6 +111,13 @@ typedef struct s_player
 	int			y;
 }	t_player;
 
+typedef struct s_enemy
+{
+	int	x;
+	int	y;
+	t_direction	direction;
+}	t_enemy;
+
 typedef struct s_data
 {
 	void		*mlx;
@@ -121,6 +125,7 @@ typedef struct s_data
 	t_textures	*textures;
 	t_map		*map;
 	t_player	*player;
+	t_enemies	*enemies;
 }	t_data;
 
 // so_long.c
@@ -138,6 +143,7 @@ void		set_textures(t_data *data, t_textures *textures);
 void		put_image(t_data *data, void *img_ptr, int x, int y);
 void		put_map(t_data *data);
 void		put_map_img(t_data *data, int x, int y);
+void		put_player(t_data *data, int x, int y);
 
 // map.c
 t_map		*get_map(char *map_file_path);

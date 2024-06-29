@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_validator2.c                                   :+:      :+:    :+:   */
+/*   map_validator2_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:48:03 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/25 17:15:28 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/29 21:35:49 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 t_bool	is_pathable(t_map *map, t_player sim, t_bool path_found)
 {

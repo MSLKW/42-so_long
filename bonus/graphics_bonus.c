@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   graphics.c                                         :+:      :+:    :+:   */
+/*   graphics_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 08:21:51 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/25 17:45:04 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/29 21:59:53 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 t_textures	*get_textures(t_data *data)
 {
@@ -82,12 +82,7 @@ void	put_map_img(t_data *data, int x, int y)
 {
 	put_image(data, data->textures->background, x, y);
 	if (data->map->lines[y][x] == PLAYER)
-	{
-		if (data->player->direction == LEFT)
-			put_image(data, data->textures->player_left, x, y);
-		else if (data->player->direction == RIGHT)
-			put_image(data, data->textures->player_right, x, y);
-	}
+		put_player(data, x, y);
 	else if (data->map->lines[y][x] == WALL)
 		put_image(data, data->textures->wall, x, y);
 	else if (data->map->lines[y][x] == COLLECTIBLE)
@@ -96,4 +91,20 @@ void	put_map_img(t_data *data, int x, int y)
 		put_image(data, data->textures->exit_closed, x, y);
 	else if (data->map->lines[y][x] == EXIT && *data->player->escaped == TRUE)
 		put_image(data, data->textures->exit_open, x, y);
+}
+
+void	put_player(t_data *data, int x, int y)
+{
+	char	*moves_count_str;
+	char	*moves_text;
+
+	if (data->player->direction == LEFT)
+		put_image(data, data->textures->player_left, x, y);
+	else if (data->player->direction == RIGHT)
+		put_image(data, data->textures->player_right, x, y);
+	moves_count_str = ft_itoa(data->player->moves_count);
+	moves_text = ft_strjoin("Moves: ", moves_count_str);
+	mlx_string_put(data->mlx, data->window, 0, 0, INT_MAX, moves_text);
+	free(moves_count_str);
+	free(moves_text);
 }

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_validator3.c                                   :+:      :+:    :+:   */
+/*   map_validator3_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 14:58:43 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/19 14:59:07 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/29 21:35:44 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 t_bool	path_up(t_map *map, t_player sim, t_bool path_found)
 {

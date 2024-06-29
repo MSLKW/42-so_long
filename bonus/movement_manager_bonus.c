@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   movement_manager.c                                 :+:      :+:    :+:   */
+/*   movement_manager_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 09:29:07 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/25 17:05:05 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/29 22:42:20 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	movement_manager(int keycode, t_data *data)
 {
@@ -28,6 +28,7 @@ void	movement_manager(int keycode, t_data *data)
 		data->player->direction = RIGHT;
 		move_player(data, 1, 0);
 	}
+	move_enemy(data);
 }
 
 void	move_player(t_data *data, int x, int y)
@@ -56,4 +57,16 @@ void	move_player(t_data *data, int x, int y)
 	data->player->moves_count++;
 	ft_printf("Moves: %i\n", data->player->moves_count);
 	put_map(data);
+}
+
+void	move_enemy(t_data *data)
+{
+	t_enemies *head;
+
+	head = data->enemies;
+	while (head != NULL)
+	{
+		// move enemy
+		head = head->next;
+	}
 }

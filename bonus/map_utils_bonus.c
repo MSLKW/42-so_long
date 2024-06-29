@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_utils.c                                        :+:      :+:    :+:   */
+/*   map_utils_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:32:04 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/25 17:12:25 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/06/29 22:41:36 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 t_bool	is_all_same(char *str, char c)
 {
@@ -44,6 +44,45 @@ t_player	*get_player(t_map *map)
 	if (assign_player_pos(player, map) == FALSE)
 		return (NULL);
 	return (player);
+}
+
+t_enemies	*get_enemies(t_map *map)
+{
+	t_enemies	*enemies;
+	t_enemy		*enemy;
+	int 		x;
+	int			y;
+	char		*line;
+
+	line = map->lines[y];
+	while (line != NULL)
+	{
+		x = 0;
+		while (line[x] != '\0')
+		{
+			if(line[x] == ENEMY)
+			{
+				enemy = make_enemy(x, y);
+				ft_lstadd_front(&enemies, ft_lstnew(enemy));
+			}
+		}
+		y++;
+		line = map->lines[y];
+	}
+	return (enemies);
+}
+
+t_enemy	*make_enemy(int x, int y)
+{
+	t_enemy	*enemy;
+	
+	enemy = malloc(sizeof(t_enemy));
+	if (enemy == NULL)
+		return (NULL);
+	enemy->x = x;
+	enemy->y = y;
+	enemy->direction = (rand() % 4) + 1;
+	return (enemy);
 }
 
 t_bool	assign_player_pos(t_player *player, t_map *map)
