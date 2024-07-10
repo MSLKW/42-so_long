@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 09:29:07 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/29 22:42:20 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/10 14:00:26 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,45 +28,89 @@ void	movement_manager(int keycode, t_data *data)
 		data->player->direction = RIGHT;
 		move_player(data, 1, 0);
 	}
-	move_enemy(data);
+	move_enemies(data); // seg faulting here ( cuz didn't get enemies yet)
+	put_map(data);
 }
-
+// enemy collision
 void	move_player(t_data *data, int x, int y)
 {
-	char	tile;
+	char	*look_at_tile;
+	char	*current_tile;
 
-	if (data->map->lines[data->player->y + y][data->player->x + x] == WALL)
+	look_at_tile = &(data->map->lines[data->player->y + y][data->player->x + x]); 
+	if (*look_at_tile == ENEMY)
+		game_over(data);
+	if (*look_at_tile == WALL)
 		return ;
-	else if (data->map->lines[data->player->y + y][data->player->x + x] == \
-			EXIT && *data->player->escaped == FALSE)
+	else if (*look_at_tile == EXIT && *data->player->escaped == FALSE)
 		return ;
-	data->map->lines[data->player->y][data->player->x] = EMPTY;
-	data->player->y += y;
-	data->player->x += x;
-	tile = data->map->lines[data->player->y][data->player->x];
-	if (tile == COLLECTIBLE)
+	current_tile = &(data->map->lines[data->player->y][data->player->x]);
+	*current_tile = EMPTY;
+	if (*look_at_tile == COLLECTIBLE)
 	{
 		*data->player->collectibles_collected += 1;
 		if (*data->player->collectibles_collected == \
 				data->map->collectibles_count)
 			*data->player->escaped = TRUE;
 	}
-	if (tile == EXIT && *data->player->escaped == TRUE)
+	if (*look_at_tile == EXIT && *data->player->escaped == TRUE)
 		game_over(data);
-	data->map->lines[data->player->y][data->player->x] = PLAYER;
+	*look_at_tile = PLAYER;
 	data->player->moves_count++;
 	ft_printf("Moves: %i\n", data->player->moves_count);
 	put_map(data);
 }
 
-void	move_enemy(t_data *data)
+void	move_enemies(t_data *data)
 {
 	t_enemies *head;
 
 	head = data->enemies;
 	while (head != NULL)
 	{
-		// move enemy
+		// iterate through enemies
+		move_enemy(data, head->content);
 		head = head->next;
 	}
+}
+
+void	move_enemy(t_data *data, t_enemy *enemy)
+{
+	// moves in the direction given
+	// if cannot move in the direction, flip the direction (eg from left to right)
+	//		cannot move conditions ( touch wall, touch enemy, touch exit )
+	//		should not consume collectibles
+	// if cannot move even after flipped then move in the other cardinal directions (eg from left and right to up and down)
+	// if all directions are not possible. then declare trapped and give a warning to console about trapped enemy
+	// player collisions xd
+
+	char	*look_at_tile;
+	char	*current_tile;
+	
+	if (enemy->move_attempts == 4)
+		return;
+	assign_enemy_dir_vector(enemy);
+	look_at_tile = &(data->map->lines[enemy->y + enemy->direction_y][enemy->x + enemy->direction_x]);
+	if (*look_at_tile == WALL || *look_at_tile == ENEMY || *look_at_tile == EXIT)
+	{
+		if (enemy->move_attempts == 1)
+			rotate_enemy_dir(enemy);
+		else if (enemy ->move_attempts != 3)
+			flip_enemy_dir(enemy);
+		enemy->move_attempts++;
+		move_enemy(data, enemy);
+	}
+	else if (*look_at_tile == PLAYER)
+		game_over(data);
+	current_tile = &(data->map->lines[enemy->y][enemy->x]);
+	if (enemy->is_on_collectible == TRUE)
+	{
+		*current_tile = COLLECTIBLE;
+		enemy->is_on_collectible = FALSE;
+	}
+	else if (enemy->is_on_collectible == FALSE)
+		*current_tile = EMPTY;
+	if (*look_at_tile == COLLECTIBLE)
+		enemy->is_on_collectible = TRUE;
+	*look_at_tile = ENEMY;
 }

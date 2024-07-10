@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:11:52 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/29 21:06:38 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/10 12:20:51 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 #  define S 115
 #  define D 100
 #  define ESC 65307
+#  define __APPLE__ 0
 # endif
 
 # define X_BUTTON 17

@@ -12,7 +12,7 @@ DEPS = $(addprefix $(SRCS_DIR), $(DEPS_FILES))
 OBJS = $(SRCS:.c=.o)
 
 BONUS_SRCS_DIR := ./bonus/
-BONUS_SRCS_FILES := so_long_bonus.c graphics_bonus.c map_bonus.c map_validator_bonus.c map_validator2_bonus.c map_validator3_bonus.c map_utils_bonus.c movement_manager_bonus.c free_data_bonus.c
+BONUS_SRCS_FILES := so_long_bonus.c graphics_bonus.c map_bonus.c map_validator_bonus.c map_validator2_bonus.c map_validator3_bonus.c map_utils_bonus.c movement_manager_bonus.c enemy_utils_bonus.c free_data_bonus.c
 BONUS_DEPS_FILES := so_long_bonus.h
 
 BONUS_SRCS = $(addprefix $(BONUS_SRCS_DIR), $(BONUS_SRCS_FILES))
@@ -41,6 +41,9 @@ $(NAME): $(OBJS) $(DEPS) $(LIBFT) $(LIBMLX)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LIBMLX) $(EFLAGS) -o $(NAME)
 $(LIBMLX):
 	make -C ./minilibx-linux
+
+bonus: $(BONUS_OBJS) $(BONUS_DEPS) $(LIBFT) $(LIBMLX)
+	$(CC) $(CFLAGS) $(BONUS_OBJS) $(LIBFT) $(LIBMLX) $(EFLAGS) -o $(NAME)	
 
 clean:
 	rm -f $(OBJS) $(BONUS_OBJS)

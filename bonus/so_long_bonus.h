@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:11:52 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/29 22:18:41 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/10 13:54:54 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 #  define S 115
 #  define D 100
 #  define ESC 65307
+#  define __APPLE__ 0
 # endif
 
 # define X_BUTTON 17
@@ -113,9 +114,13 @@ typedef struct s_player
 
 typedef struct s_enemy
 {
-	int	x;
-	int	y;
+	int			x;
+	int			y;
 	t_direction	direction;
+	int			direction_x;
+	int			direction_y;
+	int			move_attempts;	
+	t_bool		is_on_collectible;
 }	t_enemy;
 
 typedef struct s_data
@@ -136,6 +141,8 @@ int			key_manager(int keycode, t_data *data);
 // movement_manager.c
 void		movement_manager(int keycode, t_data *data);
 void		move_player(t_data *data, int x, int y);
+void		move_enemies(t_data *data);
+void		move_enemy(t_data *data, t_enemy *enemy);
 
 // graphics.c
 t_textures	*get_textures(t_data *data);
@@ -172,6 +179,13 @@ t_player	*get_player(t_map *map);
 t_bool		assign_player_pos(t_player *player, t_map *map);
 void		assign_map_size(t_map *map);
 void		assign_map_counts(t_map *map);
+
+// enemy_utils.c
+t_enemies	*get_enemies(t_map *map);
+t_enemy		*make_enemy(int x, int y);
+void		assign_enemy_dir_vector(t_enemy *enemy);
+void		flip_enemy_dir(t_enemy *enemy);
+void		rotate_enemy_dir(t_enemy *enemy);
 
 // free_data.c
 void		free_data(t_data *data);
