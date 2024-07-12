@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:10:28 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/25 17:45:18 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/12 11:35:36 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ int	main(int argc, char **argv)
 	data.mlx = mlx_init();
 	if (data.mlx == NULL)
 		return (EXIT_FAILURE);
-	data.textures = get_textures(&data);
+	data.textures = make_textures(&data);
 	if (data.textures == NULL)
 		error_exit("Textures not found");
-	data.map = get_map(argv[1]);
+	data.map = make_map(argv[1]);
 	if (data.map == NULL)
 		error_exit("Unable to get map, is map path file correct?");
-	data.player = get_player(data.map);
+	data.player = make_player(data.map);
 	if (data.player == NULL)
 		error_exit("Player not found");
 	data.window = mlx_new_window(data.mlx, data.map->width * IMAGE_SIZE, \

@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 09:29:07 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/12 09:59:17 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/12 10:59:49 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	move_player(t_data *data, int x, int y)
 
 void	move_enemies(t_data *data)
 {
-	t_enemies *head;
+	t_list *head;
 
 	head = data->enemies;
 	while (head != NULL)

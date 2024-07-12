@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:11:52 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/12 10:52:02 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/12 11:50:57 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,34 +59,27 @@
 typedef int	t_bool;
 typedef int	t_direction;
 typedef int	t_miliseconds;
-typedef t_list t_frames;
-typedef t_list t_enemies;
 
 typedef struct s_frame
 {
-	char	*file_path;
+	char	*file_name;
 	void	*image;
 	int		index;
 }	t_frame;
 
 typedef struct s_texture
 {
-	t_frames		*frames;
-	t_bool			is_looping;
-	t_bool			is_playing;
-	int				current_frame;
+	char		*name;
+	t_list		*frames;
+	int			total_frames;
+	t_bool		is_looping;
+	t_bool		is_playing;
+	int			current_frame;
 }	t_texture;
 
 typedef struct s_textures
 {
-	void	*wall;
-	void	*player_left;
-	void	*player_right;
-	void	*collectible;
-	void	*background;
-	void	*exit_closed;
-	void	*exit_open;
-	void	*enemy;
+	t_list	*texture_list;
 	int		width;
 	int		height;
 }	t_textures;
@@ -130,7 +123,7 @@ typedef struct s_data
 	t_textures	*textures;
 	t_map		*map;
 	t_player	*player;
-	t_enemies	*enemies;
+	t_list		*enemies;
 }	t_data;
 
 // so_long.c
@@ -146,7 +139,7 @@ void		move_enemies(t_data *data);
 void		move_enemy(t_data *data, t_enemy *enemy);
 
 // graphics.c
-t_textures	*get_textures(t_data *data);
+t_textures	*make_textures(t_data *data);
 void		set_textures(t_data *data, t_textures *textures);
 void		put_image(t_data *data, void *img_ptr, int x, int y);
 void		put_map(t_data *data);
@@ -154,8 +147,8 @@ void		put_map_img(t_data *data, int x, int y);
 void		put_player(t_data *data, int x, int y);
 
 // map.c
-t_map		*get_map(char *map_file_path);
-char		**get_map_lines(char *map_file_path, int map_height);
+t_map		*make_map(char *map_file_path);
+char		**make_map_lines(char *map_file_path, int map_height);
 int			get_map_height(char *map_file_path);
 
 // map_validator.c
@@ -176,13 +169,13 @@ t_bool		path_right(t_map *map, t_player sim, t_bool path_found);
 
 // map_utils.c
 t_bool		is_all_same(char *str, char c);
-t_player	*get_player(t_map *map);
+t_player	*make_player(t_map *map);
 t_bool		assign_player_pos(t_player *player, t_map *map);
 void		assign_map_size(t_map *map);
 void		assign_map_counts(t_map *map);
 
 // enemy_utils.c
-t_enemies	*get_enemies(t_map *map);
+t_list		*make_enemies(t_map *map);
 t_enemy		*make_enemy(int x, int y);
 void		assign_enemy_dir_vector(t_enemy *enemy);
 void		flip_enemy_dir(t_enemy *enemy);

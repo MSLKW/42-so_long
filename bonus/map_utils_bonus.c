@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:32:04 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/10 13:59:08 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/12 11:35:17 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_bool	is_all_same(char *str, char c)
 	return (TRUE);
 }
 
-t_player	*get_player(t_map *map)
+t_player	*make_player(t_map *map)
 {
 	t_player	*player;
 

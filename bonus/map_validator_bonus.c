@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:25:32 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/29 21:31:34 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/12 11:35:17 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_bool	is_map_valid(t_map *map)
 "Invalid map: Not enough collectibles, only one player and exit allowed");
 	else if (is_walled(map) == FALSE)
 		error_exit("Invalid map: Map is not walled off");
-	sim = get_player(map);
+	sim = make_player(map);
 	if (sim == NULL)
 		error_exit("Invalid map: Player not found");
 	else if (is_pathable(map, *sim, FALSE) == FALSE)

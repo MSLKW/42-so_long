@@ -6,15 +6,15 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 22:06:32 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/12 09:58:24 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/12 11:34:28 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-t_enemies	*get_enemies(t_map *map)
+t_list	*make_enemies(t_map *map)
 {
-	t_enemies	*enemies;
+	t_list	*enemies;
 	int 		x;
 	int			y;
 	char		*line;

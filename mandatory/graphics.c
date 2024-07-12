@@ -6,13 +6,13 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 08:21:51 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/29 21:06:38 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/12 11:34:03 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-t_textures	*get_textures(t_data *data)
+t_textures	*make_textures(t_data *data)
 {
 	t_textures	*textures;
 

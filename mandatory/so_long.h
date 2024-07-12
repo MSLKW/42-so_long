@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:11:52 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/10 12:20:51 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/12 11:35:45 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,15 +111,15 @@ void		movement_manager(int keycode, t_data *data);
 void		move_player(t_data *data, int x, int y);
 
 // graphics.c
-t_textures	*get_textures(t_data *data);
+t_textures	*make_textures(t_data *data);
 void		set_textures(t_data *data, t_textures *textures);
 void		put_image(t_data *data, void *img_ptr, int x, int y);
 void		put_map(t_data *data);
 void		put_map_img(t_data *data, int x, int y);
 
 // map.c
-t_map		*get_map(char *map_file_path);
-char		**get_map_lines(char *map_file_path, int map_height);
+t_map		*make_map(char *map_file_path);
+char		**make_map_lines(char *map_file_path, int map_height);
 int			get_map_height(char *map_file_path);
 
 // map_validator.c
@@ -140,7 +140,7 @@ t_bool		path_right(t_map *map, t_player sim, t_bool path_found);
 
 // map_utils.c
 t_bool		is_all_same(char *str, char c);
-t_player	*get_player(t_map *map);
+t_player	*make_player(t_map *map);
 t_bool		assign_player_pos(t_player *player, t_map *map);
 void		assign_map_size(t_map *map);
 void		assign_map_counts(t_map *map);

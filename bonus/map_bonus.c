@@ -6,13 +6,13 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 09:06:20 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/29 21:31:21 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/12 11:35:45 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-t_map	*get_map(char *map_file_path)
+t_map	*make_map(char *map_file_path)
 {
 	t_map	*map;
 	int		map_height;
@@ -21,7 +21,7 @@ t_map	*get_map(char *map_file_path)
 	if (map == NULL)
 		return (NULL);
 	map_height = get_map_height(map_file_path);
-	map->lines = get_map_lines(map_file_path, map_height);
+	map->lines = make_map_lines(map_file_path, map_height);
 	if (map->lines == NULL)
 	{
 		free_map(map);
@@ -32,7 +32,7 @@ t_map	*get_map(char *map_file_path)
 	assign_map_counts(map);
 	is_map_valid(map);
 	free_str_list(map->lines);
-	map->lines = get_map_lines(map_file_path, map_height);
+	map->lines = make_map_lines(map_file_path, map_height);
 	return (map);
 }
 
@@ -59,7 +59,7 @@ int	get_map_height(char *map_file_path)
 	return (height);
 }
 
-char	**get_map_lines(char *map_file_path, int map_height)
+char	**make_map_lines(char *map_file_path, int map_height)
 {
 	int		fd;
 	char	**map_lines;
