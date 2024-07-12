@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:11:52 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/10 13:54:54 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/12 10:52:02 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ typedef struct s_frame
 typedef struct s_texture
 {
 	t_frames		*frames;
-	t_miliseconds	delay;
 	t_bool			is_looping;
 	t_bool			is_playing;
 	int				current_frame;
@@ -87,6 +86,7 @@ typedef struct s_textures
 	void	*background;
 	void	*exit_closed;
 	void	*exit_open;
+	void	*enemy;
 	int		width;
 	int		height;
 }	t_textures;
@@ -137,6 +137,7 @@ typedef struct s_data
 void		error_exit(char *str);
 int			game_over(t_data *data);
 int			key_manager(int keycode, t_data *data);
+void		assign_data(t_data *data);
 
 // movement_manager.c
 void		movement_manager(int keycode, t_data *data);

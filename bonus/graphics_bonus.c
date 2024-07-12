@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 08:21:51 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/29 21:59:53 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/12 10:21:17 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	set_textures(t_data *data, t_textures *textures)
 		"./textures/exit_open.xpm", &textures->width, &textures->height);
 	textures->wall = mlx_xpm_file_to_image(data->mlx, \
 		"./textures/wall.xpm", &textures->width, &textures->height);
+	textures->enemy = mlx_xpm_file_to_image(data->mlx, \
+		"./textures/enemy_right.xpm", &textures->width, &textures->height); 
 }
 
 void	put_image(t_data *data, void *img_ptr, int x, int y)
@@ -91,6 +93,8 @@ void	put_map_img(t_data *data, int x, int y)
 		put_image(data, data->textures->exit_closed, x, y);
 	else if (data->map->lines[y][x] == EXIT && *data->player->escaped == TRUE)
 		put_image(data, data->textures->exit_open, x, y);
+	else if (data->map->lines[y][x] == ENEMY)
+		put_image(data, data->textures->enemy, x, y);
 }
 
 void	put_player(t_data *data, int x, int y)
@@ -104,7 +108,7 @@ void	put_player(t_data *data, int x, int y)
 		put_image(data, data->textures->player_right, x, y);
 	moves_count_str = ft_itoa(data->player->moves_count);
 	moves_text = ft_strjoin("Moves: ", moves_count_str);
-	mlx_string_put(data->mlx, data->window, 0, 0, INT_MAX, moves_text);
+	mlx_string_put(data->mlx, data->window, 20, 20, INT_MAX, moves_text);
 	free(moves_count_str);
 	free(moves_text);
 }

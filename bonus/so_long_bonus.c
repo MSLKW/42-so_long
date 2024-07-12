@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:10:28 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/10 13:40:38 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/12 09:17:09 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,20 @@ int	key_manager(int keycode, t_data *data)
 	return (0);
 }
 
+void	assign_data(t_data *data)
+{
+	data->textures = get_textures(data);
+	if (data->textures == NULL)
+		error_exit("Textures not found");
+	data->player = get_player(data->map);
+	if (data->player == NULL)
+		error_exit("Player not found");
+	data->enemies = get_enemies(data->map);
+	if (data->enemies == NULL)
+		error_exit("No enemies found"); // turn this into warning
+
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -46,15 +60,10 @@ int	main(int argc, char **argv)
 	data.mlx = mlx_init();
 	if (data.mlx == NULL)
 		return (EXIT_FAILURE);
-	data.textures = get_textures(&data);
-	if (data.textures == NULL)
-		error_exit("Textures not found");
 	data.map = get_map(argv[1]);
 	if (data.map == NULL)
 		error_exit("Unable to get map, is map path file correct?");
-	data.player = get_player(data.map);
-	if (data.player == NULL)
-		error_exit("Player not found");
+	assign_data(&data);
 	data.window = mlx_new_window(data.mlx, data.map->width * IMAGE_SIZE, \
 		data.map->height * IMAGE_SIZE, "so_long");
 	put_map(&data);

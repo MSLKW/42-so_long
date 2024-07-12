@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 09:29:07 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/10 14:00:26 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/12 09:59:17 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,9 @@ void	movement_manager(int keycode, t_data *data)
 		data->player->direction = RIGHT;
 		move_player(data, 1, 0);
 	}
-	move_enemies(data); // seg faulting here ( cuz didn't get enemies yet)
+	move_enemies(data);
 	put_map(data);
 }
-// enemy collision
 void	move_player(t_data *data, int x, int y)
 {
 	char	*look_at_tile;
@@ -56,9 +55,10 @@ void	move_player(t_data *data, int x, int y)
 	if (*look_at_tile == EXIT && *data->player->escaped == TRUE)
 		game_over(data);
 	*look_at_tile = PLAYER;
+	data->player->x += x;
+	data->player->y += y;
 	data->player->moves_count++;
 	ft_printf("Moves: %i\n", data->player->moves_count);
-	put_map(data);
 }
 
 void	move_enemies(t_data *data)
@@ -86,22 +86,26 @@ void	move_enemy(t_data *data, t_enemy *enemy)
 
 	char	*look_at_tile;
 	char	*current_tile;
-	
+
+	if (enemy == NULL)
+		return ;	
 	if (enemy->move_attempts == 4)
-		return;
+		return ;
 	assign_enemy_dir_vector(enemy);
 	look_at_tile = &(data->map->lines[enemy->y + enemy->direction_y][enemy->x + enemy->direction_x]);
 	if (*look_at_tile == WALL || *look_at_tile == ENEMY || *look_at_tile == EXIT)
 	{
 		if (enemy->move_attempts == 1)
 			rotate_enemy_dir(enemy);
-		else if (enemy ->move_attempts != 3)
+		else if (enemy->move_attempts != 3)
 			flip_enemy_dir(enemy);
 		enemy->move_attempts++;
 		move_enemy(data, enemy);
+		return ;
 	}
 	else if (*look_at_tile == PLAYER)
 		game_over(data);
+	enemy->move_attempts = 0;
 	current_tile = &(data->map->lines[enemy->y][enemy->x]);
 	if (enemy->is_on_collectible == TRUE)
 	{
@@ -113,4 +117,6 @@ void	move_enemy(t_data *data, t_enemy *enemy)
 	if (*look_at_tile == COLLECTIBLE)
 		enemy->is_on_collectible = TRUE;
 	*look_at_tile = ENEMY;
+	enemy->x += enemy->direction_x;
+	enemy->y += enemy->direction_y;
 }
