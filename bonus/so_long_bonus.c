@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:10:28 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/12 11:35:36 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/15 15:03:14 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,27 @@ int	key_manager(int keycode, t_data *data)
 
 void	assign_data(t_data *data)
 {
+	ft_printf("a\n");
 	data->textures = make_textures(data);
 	if (data->textures == NULL)
 		error_exit("Textures not found");
+	ft_printf("b\n");
 	data->player = make_player(data->map);
 	if (data->player == NULL)
 		error_exit("Player not found");
+	ft_printf("c\n");	
 	data->enemies = make_enemies(data->map);
 	if (data->enemies == NULL)
 		error_exit("No enemies found"); // turn this into warning
-
+	ft_printf("d\n");
 }
 
 int	main(int argc, char **argv)
 {
 	t_data	data;
 
+	ft_printf("A\n");
+	data.tick = 0;
 	if (argc > 2)
 		error_exit("Too many arguments");
 	else if (argc != 2)
@@ -63,11 +68,15 @@ int	main(int argc, char **argv)
 	data.map = make_map(argv[1]);
 	if (data.map == NULL)
 		error_exit("Unable to get map, is map path file correct?");
+	ft_printf("B\n");
 	assign_data(&data);
 	data.window = mlx_new_window(data.mlx, data.map->width * IMAGE_SIZE, \
 		data.map->height * IMAGE_SIZE, "so_long");
+	ft_printf("C\n");
 	put_map(&data);
+	ft_printf("D\n");
 	mlx_key_hook(data.window, key_manager, &data);
+	mlx_loop_hook(data.mlx, update_tick, &data); 
 	mlx_hook(data.window, X_BUTTON, 1L << 0, game_over, &data);
 	mlx_loop(data.mlx);
 }

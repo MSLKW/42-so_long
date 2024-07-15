@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 08:21:51 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/12 11:34:03 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/15 13:27:43 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_textures	*make_textures(t_data *data)
 		textures->exit_open == NULL || \
 		textures->wall == NULL)
 	{
-		free_textures(data, data->textures);
+		destroy_textures(data, data->textures);
 		return (NULL);
 	}
 	return (textures);

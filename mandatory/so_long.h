@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:11:52 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/12 11:35:45 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/15 13:27:43 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ void		assign_map_counts(t_map *map);
 
 // free_data.c
 void		free_data(t_data *data);
-void		free_textures(t_data *data, t_textures *textures);
+void		destroy_textures(t_data *data, t_textures *textures);
 void		free_map(t_map *map);
 void		free_player(t_player *player);
 void		free_str_list(char **str_list);

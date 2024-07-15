@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:11:52 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/12 11:50:57 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/15 14:35:29 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@
 # define TRUE 1
 # define FALSE 0
 
+// roughly 27000 loops per second (1350 x 20)
+# define TICK_RATE 20
+
 # define PLAYER 'P'
 # define WALL '1'
 # define EMPTY '0'
@@ -64,7 +67,6 @@ typedef struct s_frame
 {
 	char	*file_name;
 	void	*image;
-	int		index;
 }	t_frame;
 
 typedef struct s_texture
@@ -120,6 +122,7 @@ typedef struct s_data
 {
 	void		*mlx;
 	void		*window;
+	int			tick;
 	t_textures	*textures;
 	t_map		*map;
 	t_player	*player;
@@ -140,8 +143,11 @@ void		move_enemy(t_data *data, t_enemy *enemy);
 
 // graphics.c
 t_textures	*make_textures(t_data *data);
-void		set_textures(t_data *data, t_textures *textures);
-void		put_image(t_data *data, void *img_ptr, int x, int y);
+t_texture	*make_texture(char *name, t_list *frames);
+t_texture	*get_texture(t_list *texture_list, char *name);
+t_list		*make_frames(t_data *data, char *file_name);
+t_frame		*make_frame(t_data *data, char *file_name);
+void		put_texture(t_data *data, t_texture *texture_ptr, int x, int y);
 void		put_map(t_data *data);
 void		put_map_img(t_data *data, int x, int y);
 void		put_player(t_data *data, int x, int y);
@@ -181,9 +187,15 @@ void		assign_enemy_dir_vector(t_enemy *enemy);
 void		flip_enemy_dir(t_enemy *enemy);
 void		rotate_enemy_dir(t_enemy *enemy);
 
+// animation_manager.c
+int	update_tick(t_data *data);
+void	next_frame(t_data *data, t_list **texture_list);
+int		round_up(float num);
+
 // free_data.c
 void		free_data(t_data *data);
-void		free_textures(t_data *data, t_textures *textures);
+void		destroy_texture(t_data *data, t_texture *texture);
+void		destroy_textures(t_data *data, t_textures *textures);
 void		free_map(t_map *map);
 void		free_player(t_player *player);
 void		free_str_list(char **str_list);

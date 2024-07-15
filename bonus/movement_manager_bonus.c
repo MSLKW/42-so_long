@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 09:29:07 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/12 10:59:49 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/15 15:21:53 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	movement_manager(int keycode, t_data *data)
 		data->player->direction = RIGHT;
 		move_player(data, 1, 0);
 	}
-	move_enemies(data);
 	put_map(data);
 }
 void	move_player(t_data *data, int x, int y)

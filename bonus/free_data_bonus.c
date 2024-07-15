@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 10:22:52 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/29 21:31:11 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/15 13:28:37 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_data(t_data *data)
 {
-	free_textures(data, data->textures);
+	destroy_textures(data, data->textures);
 	free_map(data->map);
 	free_player(data->player);
 	mlx_destroy_window(data->mlx, data->window);
@@ -22,15 +22,33 @@ void	free_data(t_data *data)
 		free(data->mlx);
 }
 
-void	free_textures(t_data *data, t_textures *textures)
+void	destroy_texture(t_data *data, t_texture *texture)
 {
-	mlx_destroy_image(data->mlx, textures->wall);
-	mlx_destroy_image(data->mlx, textures->player_right);
-	mlx_destroy_image(data->mlx, textures->player_left);
-	mlx_destroy_image(data->mlx, textures->collectible);
-	mlx_destroy_image(data->mlx, textures->background);
-	mlx_destroy_image(data->mlx, textures->exit_closed);
-	mlx_destroy_image(data->mlx, textures->exit_open);
+	t_list *head;
+	t_list *temp;
+	t_frame *frame;
+
+	head = texture->frames;
+	while (head != NULL)
+	{
+		frame = head->content;
+		free(frame->file_name);
+		mlx_destroy_image(data->mlx, frame->image);
+		free(frame);
+		temp = head->next;
+		free(head);
+		head = temp;
+	}
+	free(texture);
+}
+
+void	destroy_textures(t_data *data, t_textures *textures)
+{
+	t_list	*head;
+
+	head = textures->texture_list;
+	while (head != NULL)
+		destroy_texture(data, head->content);
 	free(textures);
 }
 
