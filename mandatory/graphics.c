@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 08:21:51 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/16 14:42:01 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/16 14:43:26 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	set_textures(t_data *data, t_textures *textures)
 		"./textures/exit19.xpm", &textures->width, &textures->height);
 	textures->wall = mlx_xpm_file_to_image(data->mlx, \
 		"./textures/wall.xpm", &textures->width, &textures->height);
-	if (textures->background == NULL || textures->player_right == NULL ||\
-		textures->player_left == NULL || textures->collectible == NULL ||\
-		textures->exit_closed == NULL || textures->exit_open == NULL ||\
+	if (textures->background == NULL || textures->player_right == NULL || \
+		textures->player_left == NULL || textures->collectible == NULL || \
+		textures->exit_closed == NULL || textures->exit_open == NULL || \
 		textures->wall == NULL)
 	{
 		error_exit("Required texture not found");
