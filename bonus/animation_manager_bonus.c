@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 10:56:05 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/16 10:01:44 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/16 12:25:22 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ int	update_tick(t_data *data)
 {
 	static int	loops = 0;
 
-	if (loops >= 1350)
+	if (loops >= LOOP_RATE)
 	{
 		loops = 0;
 		data->tick++;
 		next_frame(&data->textures->texture_list);
 		put_map(data);
-		if (data->tick == 10 || data->tick == 20)
+		if (data->tick % 10 == 0)
 		{
 			move_enemies(data);
 		}

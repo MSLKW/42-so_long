@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:11:52 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/16 10:02:35 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/16 12:38:52 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 #  define S 1
 #  define D 2
 #  define ESC 53
+#  define LOOP_RATE 500
 # else 
 #  include "../minilibx-linux/mlx.h"
 #  define W 119
@@ -34,6 +35,7 @@
 #  define S 115
 #  define D 100
 #  define ESC 65307
+#  define LOOP_RATE 1350
 #  define __APPLE__ 0
 # endif
 
@@ -201,5 +203,6 @@ void		destroy_textures(t_data *data, t_textures *textures);
 void		free_map(t_map *map);
 void		free_player(t_player *player);
 void		free_str_list(char **str_list);
+void		free_enemies(t_list *enemies);
 
 #endif
