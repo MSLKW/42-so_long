@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 08:21:51 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/15 15:27:52 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/16 09:20:59 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,24 @@ t_textures	*make_textures(t_data *data)
 	textures->width = IMAGE_SIZE;
 	textures->height = IMAGE_SIZE;
 	data->textures = textures;
-	texture_list = ft_lstnew(make_texture("player_right", make_frames(data, "./textures/player_right")));
-	ft_lstadd_back(&texture_list, ft_lstnew(make_texture("player_left", make_frames(data, "./textures/player_left"))));
+	texture_list = ft_lstnew(make_manual_anim_texture(data, "player", "./textures/player"));
 	ft_lstadd_back(&texture_list, ft_lstnew(make_texture("wall", make_frames(data, "./textures/wall"))));
 	ft_lstadd_back(&texture_list, ft_lstnew(make_texture("collectible", make_frames(data, "./textures/collectible"))));
 	ft_lstadd_back(&texture_list, ft_lstnew(make_texture("background", make_frames(data, "./textures/background"))));
-	ft_lstadd_back(&texture_list, ft_lstnew(make_texture("exit", make_frames(data, "./textures/exit_closed"))));
-	ft_lstadd_back(&texture_list, ft_lstnew(make_texture("enemy_right", make_frames(data, "./textures/enemy_right"))));
+	ft_lstadd_back(&texture_list, ft_lstnew(make_manual_anim_texture(data, "exit", "./textures/exit")));
+	ft_lstadd_back(&texture_list, ft_lstnew(make_texture("enemy", make_frames(data, "./textures/enemy"))));
 	textures->texture_list = texture_list;
 	return (textures);
+}
+
+t_texture	*make_manual_anim_texture(t_data *data, char *name, char *file_name)
+{
+	t_texture *texture;
+
+	texture = make_texture(name, make_frames(data, file_name));
+	texture->is_looping = FALSE;
+	texture->is_playing = FALSE;
+	return (texture);
 }
 
 t_texture	*make_texture(char *name, t_list *frames)
@@ -47,6 +56,7 @@ t_texture	*make_texture(char *name, t_list *frames)
 	texture->is_looping = TRUE;
 	texture->is_playing = TRUE;
 	texture->current_frame = 0;
+	texture->frame_delay_count = 0;
 	return (texture);
 }
 
@@ -59,7 +69,7 @@ t_texture	*get_texture(t_list *texture_list, char *name)
 	while (head != NULL)
 	{
 		texture = head->content;
-		if (texture->name == name)
+		if (ft_strncmp(texture->name, name, ft_strlen(texture->name)) == 0)
 			return (texture);
 		head = head->next;
 	}
@@ -152,7 +162,7 @@ void	put_map_img(t_data *data, int x, int y)
 	else if (data->map->lines[y][x] == EXIT)
 		put_texture(data, get_texture(data->textures->texture_list, "exit"), x, y);
 	else if (data->map->lines[y][x] == ENEMY)
-		put_texture(data, get_texture(data->textures->texture_list, "enemy_right"), x, y);
+		put_texture(data, get_texture(data->textures->texture_list, "enemy"), x, y);
 }
 
 void	put_player(t_data *data, int x, int y)
@@ -160,10 +170,7 @@ void	put_player(t_data *data, int x, int y)
 	char	*moves_count_str;
 	char	*moves_text;
 
-	if (data->player->direction == LEFT)
-		put_texture(data, get_texture(data->textures->texture_list, "player_left"), x, y);
-	else if (data->player->direction == RIGHT)
-		put_texture(data, get_texture(data->textures->texture_list, "player_right"), x, y);
+	put_texture(data, get_texture(data->textures->texture_list, "player"), x, y);
 	moves_count_str = ft_itoa(data->player->moves_count);
 	moves_text = ft_strjoin("Moves: ", moves_count_str);
 	mlx_string_put(data->mlx, data->window, 20, 20, INT_MAX, moves_text);

@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 08:21:51 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/15 13:27:43 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/15 17:19:11 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,21 @@ t_textures	*make_textures(t_data *data)
 	return (textures);
 }
 
+// IF TEXTURE IS NULL, SHOULD NOT PRODUCE SEGMENTATION FAULT
 void	set_textures(t_data *data, t_textures *textures)
 {
 	textures->background = mlx_xpm_file_to_image(data->mlx, \
 		"./textures/background.xpm", &textures->width, &textures->height);
 	textures->player_right = mlx_xpm_file_to_image(data->mlx, \
-		"./textures/player_right.xpm", &textures->width, &textures->height);
+		"./textures/player1.xpm", &textures->width, &textures->height);
 	textures->player_left = mlx_xpm_file_to_image(data->mlx, \
-		"./textures/player_test.xpm", &textures->width, &textures->height);
+		"./textures/player3.xpm", &textures->width, &textures->height);
 	textures->collectible = mlx_xpm_file_to_image(data->mlx, \
 		"./textures/collectible.xpm", &textures->width, &textures->height);
 	textures->exit_closed = mlx_xpm_file_to_image(data->mlx, \
-		"./textures/exit_closed.xpm", &textures->width, &textures->height);
+		"./textures/exit.xpm", &textures->width, &textures->height);
 	textures->exit_open = mlx_xpm_file_to_image(data->mlx, \
-		"./textures/exit_open.xpm", &textures->width, &textures->height);
+		"./textures/exit19.xpm", &textures->width, &textures->height);
 	textures->wall = mlx_xpm_file_to_image(data->mlx, \
 		"./textures/wall.xpm", &textures->width, &textures->height);
 }

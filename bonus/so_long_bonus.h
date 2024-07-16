@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:11:52 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/15 14:35:29 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/16 10:02:35 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_texture
 	char		*name;
 	t_list		*frames;
 	int			total_frames;
+	int			frame_delay_count;
 	t_bool		is_looping;
 	t_bool		is_playing;
 	int			current_frame;
@@ -143,6 +144,7 @@ void		move_enemy(t_data *data, t_enemy *enemy);
 
 // graphics.c
 t_textures	*make_textures(t_data *data);
+t_texture	*make_manual_anim_texture(t_data *data, char *name, char *file_name);
 t_texture	*make_texture(char *name, t_list *frames);
 t_texture	*get_texture(t_list *texture_list, char *name);
 t_list		*make_frames(t_data *data, char *file_name);
@@ -189,7 +191,7 @@ void		rotate_enemy_dir(t_enemy *enemy);
 
 // animation_manager.c
 int	update_tick(t_data *data);
-void	next_frame(t_data *data, t_list **texture_list);
+void	next_frame(t_list **texture_list);
 int		round_up(float num);
 
 // free_data.c

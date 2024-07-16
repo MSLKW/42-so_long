@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 09:29:07 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/15 15:21:53 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/16 09:38:25 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,26 @@
 void	movement_manager(int keycode, t_data *data)
 {
 	if (keycode == W)
+	{
+		data->player->direction = UP;
 		move_player(data, 0, -1);
+	}
 	else if (keycode == A)
 	{
 		data->player->direction = LEFT;
 		move_player(data, -1, 0);
 	}
 	else if (keycode == S)
+	{
+		data->player->direction = DOWN;
 		move_player(data, 0, 1);
+	}
 	else if (keycode == D)
 	{
 		data->player->direction = RIGHT;
 		move_player(data, 1, 0);
 	}
+	get_texture(data->textures->texture_list, "player")->current_frame = data->player->direction - 1;
 	put_map(data);
 }
 void	move_player(t_data *data, int x, int y)
@@ -49,7 +56,10 @@ void	move_player(t_data *data, int x, int y)
 		*data->player->collectibles_collected += 1;
 		if (*data->player->collectibles_collected == \
 				data->map->collectibles_count)
+		{
 			*data->player->escaped = TRUE;
+			get_texture(data->textures->texture_list, "exit")->is_playing = TRUE;
+		}
 	}
 	if (*look_at_tile == EXIT && *data->player->escaped == TRUE)
 		game_over(data);
@@ -75,14 +85,6 @@ void	move_enemies(t_data *data)
 
 void	move_enemy(t_data *data, t_enemy *enemy)
 {
-	// moves in the direction given
-	// if cannot move in the direction, flip the direction (eg from left to right)
-	//		cannot move conditions ( touch wall, touch enemy, touch exit )
-	//		should not consume collectibles
-	// if cannot move even after flipped then move in the other cardinal directions (eg from left and right to up and down)
-	// if all directions are not possible. then declare trapped and give a warning to console about trapped enemy
-	// player collisions xd
-
 	char	*look_at_tile;
 	char	*current_tile;
 
