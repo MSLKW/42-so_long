@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 10:56:05 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/16 12:25:22 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/16 13:15:30 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ int	update_tick(t_data *data)
 		next_frame(&data->textures->texture_list);
 		put_map(data);
 		if (data->tick % 10 == 0)
-		{
 			move_enemies(data);
-		}
 	}
 	if (data->tick >= TICK_RATE)
 		data->tick = 0;
@@ -35,9 +33,8 @@ int	update_tick(t_data *data)
 
 void	next_frame(t_list **texture_list)
 {
-	int frame_delay;
-	t_list *head;
-	t_texture *texture;
+	t_list		*head;
+	t_texture	*texture;
 
 	head = *texture_list;
 	while (head != NULL)
@@ -45,41 +42,29 @@ void	next_frame(t_list **texture_list)
 		texture = head->content;
 		if (texture == NULL)
 			return ;
-		if (texture->is_playing == TRUE)
-		{
-			frame_delay = TICK_RATE / texture->total_frames;
-			// if (texture->is_looping == FALSE && texture->reset_flag == FALSE)
-			// {
-			// 	texture->reset_flag = TRUE;
-			// 	data->tick = 0;
-			// 	// maybe put the tick system in the texture so every texture has its own separate tick system
-			// }
-			// texture->current_frame = round_up((float)data->tick / (float)frame_delay) - 1;
-			// can play anim when data->tick is at 20, so it immediately turns greenw ithout anim
-			// solution: use current_frame++ each tick and loop it., figure out frame delay inbetween
-
-			if (texture->frame_delay_count < frame_delay)
-			{
-				texture->frame_delay_count++;
-				head = head->next;
-				continue;
-			}
-			texture->current_frame++;
-			texture->frame_delay_count = 0;
-			if (texture->is_looping == TRUE && texture->current_frame >= texture->total_frames)
-				texture->current_frame = 0;
-			if (texture->is_looping == FALSE && texture->current_frame >= texture->total_frames - 1)
-				texture->is_playing = FALSE;
-		}		
+		update_current_frame(texture);
 		head = head->next;
 	}
 }
 
-int	round_up(float num)
+void	update_current_frame(t_texture *texture)
 {
-	if ((int)num == num)
+	int	frame_delay;
+
+	if (texture->is_playing == FALSE)
+		return ;
+	frame_delay = TICK_RATE / texture->total_frames;
+	if (texture->frame_delay_count < frame_delay)
 	{
-		return ((int)num);
+		texture->frame_delay_count++;
+		return ;
 	}
-	return ((int)(num + 1));
+	texture->current_frame++;
+	texture->frame_delay_count = 0;
+	if (texture->is_looping == TRUE && \
+		texture->current_frame >= texture->total_frames)
+		texture->current_frame = 0;
+	if (texture->is_looping == FALSE && \
+		texture->current_frame >= texture->total_frames - 1)
+		texture->is_playing = FALSE;
 }

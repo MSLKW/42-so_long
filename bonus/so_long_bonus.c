@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:10:28 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/16 12:18:30 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/16 12:57:43 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	assign_data(t_data *data)
 		error_exit("Player not found");
 	data->enemies = make_enemies(data->map);
 	if (data->enemies == NULL)
-		error_exit("No enemies found"); // turn this into warning
+		ft_printf("Warning: No enemies found\n");
 }
 
 int	main(int argc, char **argv)
@@ -68,7 +68,7 @@ int	main(int argc, char **argv)
 		data.map->height * IMAGE_SIZE, "so_long");
 	put_map(&data);
 	mlx_key_hook(data.window, key_manager, &data);
-	mlx_loop_hook(data.mlx, update_tick, &data); 
+	mlx_loop_hook(data.mlx, update_tick, &data);
 	mlx_hook(data.window, X_BUTTON, 1L << 0, game_over, &data);
 	mlx_loop(data.mlx);
 }

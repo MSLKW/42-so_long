@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 09:29:07 by maxliew           #+#    #+#             */
-/*   Updated: 2024/06/25 17:05:05 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/16 13:52:58 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	move_player(t_data *data, int x, int y)
 	tile = data->map->lines[data->player->y][data->player->x];
 	if (tile == COLLECTIBLE)
 	{
-		*data->player->collectibles_collected += 1;
-		if (*data->player->collectibles_collected == \
+		*data->player->collects_collected += 1;
+		if (*data->player->collects_collected == \
 				data->map->collectibles_count)
 			*data->player->escaped = TRUE;
 	}

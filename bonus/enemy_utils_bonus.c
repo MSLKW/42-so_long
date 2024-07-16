@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 22:06:32 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/16 08:20:15 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/16 14:01:57 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 t_list	*make_enemies(t_map *map)
 {
 	t_list	*enemies;
-	int 		x;
-	int			y;
-	char		*line;
+	int		x;
+	int		y;
+	char	*line;
 
 	enemies = ft_lstnew(NULL);
 	y = 0;
@@ -27,28 +27,29 @@ t_list	*make_enemies(t_map *map)
 		x = 0;
 		while (line[x] != '\0')
 		{
-			if(line[x] == ENEMY)
+			if (line[x] == ENEMY)
 				ft_lstadd_back(&enemies, ft_lstnew(make_enemy(x, y)));
 			x++;
 		}
 		y++;
 		line = map->lines[y];
 	}
-	if (ft_lstsize(enemies) == 1)
-		return (NULL);
-	return (enemies);
+	if (ft_lstsize(enemies) > 1)
+		return (enemies);
+	free_enemies(enemies);
+	return (NULL);
 }
 
 t_enemy	*make_enemy(int x, int y)
 {
 	t_enemy	*enemy;
-	
+
 	enemy = malloc(sizeof(t_enemy));
 	if (enemy == NULL)
 		return (NULL);
 	enemy->x = x;
 	enemy->y = y;
-	enemy->direction = (rand() % 4) + 1; // is it actually being random?
+	enemy->direction = (rand() % 4) + 1;
 	enemy->move_attempts = 0;
 	enemy->is_on_collectible = FALSE;
 	assign_enemy_dir_vector(enemy);
@@ -58,11 +59,11 @@ t_enemy	*make_enemy(int x, int y)
 void	assign_enemy_dir_vector(t_enemy *enemy)
 {
 	enemy->direction_x = 0;
-	enemy->direction_y = 0;	
+	enemy->direction_y = 0;
 	if (enemy->direction == UP)
 		enemy->direction_y = -1;
 	else if (enemy->direction == DOWN)
-		enemy->direction_y = 1;	
+		enemy->direction_y = 1;
 	else if (enemy->direction == LEFT)
 		enemy->direction_x = -1;
 	else if (enemy->direction == RIGHT)

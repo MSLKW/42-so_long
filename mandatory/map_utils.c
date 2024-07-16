@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:32:04 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/12 11:35:17 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/16 13:52:58 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ t_player	*make_player(t_map *map)
 	player = malloc(sizeof(t_player));
 	if (player == NULL)
 		return (NULL);
-	player->collectibles_collected = malloc(sizeof(int *));
+	player->collects_collected = malloc(sizeof(int *));
 	player->escaped = malloc(sizeof(t_bool));
-	if (player->collectibles_collected == NULL || player->escaped == NULL)
+	if (player->collects_collected == NULL || player->escaped == NULL)
 		return (NULL);
 	player->moves_count = 0;
-	*player->collectibles_collected = 0;
+	*player->collects_collected = 0;
 	*player->escaped = FALSE;
 	player->direction = RIGHT;
 	if (assign_player_pos(player, map) == FALSE)

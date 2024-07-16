@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 10:22:52 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/15 13:27:43 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/16 13:52:58 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	free_str_list(char **str_list)
 
 void	free_player(t_player *player)
 {
-	free(player->collectibles_collected);
+	free(player->collects_collected);
 	free(player->escaped);
 	free(player);
 }

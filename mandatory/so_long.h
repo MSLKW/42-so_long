@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:11:52 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/15 13:27:43 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/16 13:52:58 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ typedef struct s_map
 typedef struct s_player
 {
 	int			moves_count;
-	int			*collectibles_collected;
+	int			*collects_collected;
 	t_direction	direction;
 	t_bool		*escaped;
 	int			x;

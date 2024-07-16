@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 10:22:52 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/16 12:50:21 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/16 13:52:58 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	free_data(t_data *data)
 {
-	// destroy_textures(data, data->textures);
 	free_map(data->map);
 	free_player(data->player);
 	free_enemies(data->enemies);
@@ -81,14 +80,15 @@ void	free_str_list(char **str_list)
 
 void	free_player(t_player *player)
 {
-	free(player->collectibles_collected);
+	free(player->collects_collected);
 	free(player->escaped);
 	free(player);
 }
 
 void	free_enemies(t_list *enemies)
 {
-	t_list *head;
+	t_list	*head;
+	t_list	*temp;
 	t_enemy	*enemy;
 
 	head = enemies;
@@ -96,6 +96,8 @@ void	free_enemies(t_list *enemies)
 	{
 		enemy = head->content;
 		free(enemy);
+		temp = head;
 		head = head->next;
+		free(temp);
 	}
 }
