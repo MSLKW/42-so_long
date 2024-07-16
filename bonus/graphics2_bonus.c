@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:39:51 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/16 13:44:50 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/16 14:26:35 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_list	*make_frames(t_data *data, char *file_name)
 
 	frame = make_frame(data, file_name);
 	if (frame == NULL)
-		return (NULL);
+		error_exit("Required texture not found");
 	frames = ft_lstnew(frame);
 	index = 1;
 	while (frame != NULL)

@@ -6,7 +6,7 @@
 /*   By: maxliew <maxliew@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 09:29:07 by maxliew           #+#    #+#             */
-/*   Updated: 2024/07/16 14:06:12 by maxliew          ###   ########.fr       */
+/*   Updated: 2024/07/16 14:27:37 by maxliew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	move_enemies(t_data *data)
 void	move_enemy(t_data *data, t_enemy *enemy)
 {
 	char	*look_at_tile;
-	char	*current_tile;
 
 	if (enemy == NULL || enemy->move_attempts == 4)
 		return ;
